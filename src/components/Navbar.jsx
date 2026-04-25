@@ -38,7 +38,6 @@ const Navbar = () => {
                 <Link to="#">Company <FaChevronDown className="chevron" /></Link>
                 <ul className="dropdown">
                   <li><Link to="/about">About Us</Link></li>
-                  <li><Link to="/team">Our Team</Link></li>
                   <li><Link to="/blog">Travel Blog</Link></li>
                   <li><Link to="/contact">Contact Us</Link></li>
                 </ul>
