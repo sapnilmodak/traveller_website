@@ -1,0 +1,38 @@
+.team-page .page-header {
+  background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+}
+
+.team-intro h2 {
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+.max-w-800 {
+  max-width: 800px;
+  margin: 0 auto 50px;
+  color: var(--text-light);
+}
+
+.team-full-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+}
+
+@media (max-width: 1024px) {
+  .team-full-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .team-full-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .team-full-grid {
+    grid-template-columns: 1fr;
+  }
+}

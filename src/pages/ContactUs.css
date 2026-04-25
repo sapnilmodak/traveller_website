@@ -1,0 +1,99 @@
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 50px;
+}
+
+.contact-info-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.contact-card {
+  background: var(--bg-light);
+  padding: 25px;
+  border-radius: 8px;
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  transition: var(--transition);
+}
+
+.contact-card:hover {
+  background: var(--white);
+  box-shadow: var(--shadow);
+  transform: translateX(10px);
+}
+
+.contact-icon {
+  font-size: 24px;
+  color: var(--primary);
+  margin-top: 5px;
+}
+
+.contact-details h3 {
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.contact-details p {
+  font-size: 14px;
+  color: var(--text-light);
+  margin-bottom: 0;
+}
+
+.contact-form-container {
+  background: var(--white);
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+.contact-form-container h2 {
+  margin-bottom: 30px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.contact-form .form-group {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-form label {
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--text-dark);
+}
+
+.contact-form input, .contact-form textarea {
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 14px;
+}
+
+.btn-block {
+  width: 100%;
+}
+
+@media (max-width: 1024px) {
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+}
