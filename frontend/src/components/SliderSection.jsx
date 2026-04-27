@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import PackageCard from './PackageCard';
@@ -41,15 +42,17 @@ const SliderSection = ({ title, subtitle, data, type }) => {
           {data.map((item, index) => (
             <SwiperSlide key={index}>
               {type === 'category' ? (
-                <div className="category-card-premium">
-                  <div className="category-img">
-                    <img src={item.thumbSrc} alt={item.title} />
+                <Link to={`/packages?category=${item.title}`} className="category-card-link">
+                  <div className="category-card-premium">
+                    <div className="category-img">
+                      <img src={item.thumbSrc} alt={item.title} />
+                    </div>
+                    <div className="category-info">
+                      <h3>{item.title}</h3>
+                      <p>Explore Now</p>
+                    </div>
                   </div>
-                  <div className="category-info">
-                    <h3>{item.title}</h3>
-                    <p>{item.count || '0'} Packages</p>
-                  </div>
-                </div>
+                </Link>
               ) : (
                 <PackageCard item={item} type={type} />
               )}

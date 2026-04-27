@@ -167,3 +167,16 @@ export const TEAMS = [
     "teamSrc": "https://www.overlandescape.com/storage/teammanagements/281123104545-tundup.jpg"
   }
 ];
+export const CABS = [
+  { id: 1, title: "Toyota Innova Crysta", type: "SUV", capacity: "6+1", price: 3500, src: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=800&q=80" },
+  { id: 2, title: "Mahindra Xylo", type: "SUV", capacity: "6+1", price: 2800, src: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=800&q=80" },
+  { id: 3, title: "Tempo Traveler", type: "Van", capacity: "12+1", price: 5500, src: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=800&q=80" },
+  { id: 4, title: "Swift Dzire", type: "Sedan", capacity: "4+1", price: 2200, src: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=800&q=80" }
+];
+
+export const RENTALS = [
+  { id: 1, title: "Royal Enfield Himalayan 411", type: "Adventure", engine: "411cc", price: 1500, src: "https://images.unsplash.com/photo-1558981403-c5f91cbba527?auto=format&fit=crop&w=800&q=80" },
+  { id: 2, title: "Royal Enfield Classic 350", type: "Cruiser", engine: "350cc", price: 1200, src: "https://images.unsplash.com/photo-1558981403-c5f91cbba527?auto=format&fit=crop&w=800&q=80" },
+  { id: 3, title: "Royal Enfield Hunter 350", type: "Modern Retro", engine: "350cc", price: 1300, src: "https://images.unsplash.com/photo-1558981403-c5f91cbba527?auto=format&fit=crop&w=800&q=80" },
+  { id: 4, title: "KTM Adventure 390", type: "Adventure", engine: "390cc", price: 1800, src: "https://images.unsplash.com/photo-1558981403-c5f91cbba527?auto=format&fit=crop&w=800&q=80" }
+];

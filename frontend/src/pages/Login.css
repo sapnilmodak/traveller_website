@@ -1,0 +1,99 @@
+.login-container {
+  min-height: calc(100vh - 80px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background-color: #f8fafc;
+}
+
+.login-card {
+  background: white;
+  padding: 2.5rem;
+  border-radius: 1.5rem;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  width: 100%;
+  max-width: 450px;
+}
+
+.login-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.login-header h2.ant-typography {
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--text-dark) !important;
+  margin-bottom: 8px !important;
+}
+
+.login-header .ant-typography {
+  color: var(--text-light);
+  font-size: 15px;
+}
+
+.auth-options {
+  margin-top: 30px;
+}
+
+.clerk-auth-btn {
+  height: 50px !important;
+  border-radius: 12px !important;
+  font-weight: 700 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 10px !important;
+  border: 1px solid rgba(0,0,0,0.1) !important;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.02) !important;
+  color: var(--text-dark) !important;
+}
+
+.google-icon {
+  color: #4285F4;
+  font-size: 18px;
+}
+
+.auth-form .ant-input-affix-wrapper-lg {
+  border-radius: 12px !important;
+  padding: 12px 15px !important;
+  background: var(--bg-light) !important;
+  border: 1px solid rgba(0,0,0,0.05) !important;
+}
+
+.auth-form .ant-input-affix-wrapper-lg:hover,
+.auth-form .ant-input-affix-wrapper-lg-focused {
+  background: var(--white) !important;
+  border-color: var(--primary) !important;
+  box-shadow: 0 0 0 4px rgba(135, 206, 235, 0.1) !important;
+}
+
+.input-icon {
+  color: var(--primary);
+  margin-right: 8px;
+}
+
+.submit-btn {
+  height: 50px !important;
+  border-radius: 12px !important;
+  font-weight: 800 !important;
+  font-size: 16px !important;
+  margin-top: 10px !important;
+}
+
+.login-footer {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.toggle-btn {
+  font-weight: 700 !important;
+  padding: 0 5px !important;
+}
+
+@media (max-width: 480px) {
+  .login-card {
+    padding: 30px 20px;
+  }
+}

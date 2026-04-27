@@ -1,35 +1,27 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import { blogService } from '../services/api';
 import './Blog.css';
 
 const Blog = () => {
-  const blogs = [
-    {
-      id: 1,
-      title: "Top 7 Easy Treks in Ladakh for Beginners",
-      excerpt: "If you are planning your first trekking trip to Ladakh, these easy treks are perfect for you...",
-      date: "Oct 24, 2024",
-      category: "Adventure",
-      image: "https://images.unsplash.com/photo-1544085311-11a028465b03?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-    },
-    {
-      id: 2,
-      title: "The Ultimate Guide to Ladakh Group Tour Packages",
-      excerpt: "Traveling in a group is not only fun but also cost-effective. Here is everything you need to know...",
-      date: "Sep 15, 2024",
-      category: "Information",
-      image: "https://images.unsplash.com/photo-1506461883276-594a12b11cf3?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-    },
-    {
-      id: 3,
-      title: "Cultural Festivals of Ladakh: A Visual Journey",
-      excerpt: "Ladakh is home to vibrant festivals that showcase the rich heritage of the region...",
-      date: "Aug 10, 2024",
-      category: "Culture",
-      image: "https://images.unsplash.com/photo-1524491991492-e31996457db7?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-    }
-  ];
+  const [blogs, setBlogs] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      try {
+        const { data } = await blogService.getAll();
+        setBlogs(data);
+      } catch (error) {
+        console.error('Error fetching blogs:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchBlogs();
+  }, []);
 
   return (
     <div className="blog-page">
@@ -45,20 +37,28 @@ const Blog = () => {
         <div className="container">
           <div className="blog-layout">
             <div className="blog-posts">
-              {blogs.map(blog => (
-                <article key={blog.id} className="blog-card">
-                  <div className="blog-image">
-                    <img src={blog.image} alt={blog.title} />
-                    <span className="blog-category">{blog.category}</span>
-                  </div>
-                  <div className="blog-content">
-                    <span className="blog-date">{blog.date}</span>
-                    <h2>{blog.title}</h2>
-                    <p>{blog.excerpt}</p>
-                    <button className="btn-read">Read More</button>
-                  </div>
-                </article>
-              ))}
+              {loading ? (
+                <div className="loading">Loading blogs...</div>
+              ) : (
+                blogs.length > 0 ? (
+                  blogs.map(blog => (
+                    <article key={blog._id} className="blog-card">
+                      <div className="blog-image">
+                        <img src={blog.thumbSrc || blog.image} alt={blog.title} />
+                        <span className="blog-category">{blog.category}</span>
+                      </div>
+                      <div className="blog-content">
+                        <span className="blog-date">{new Date(blog.createdAt).toLocaleDateString()}</span>
+                        <h2>{blog.title}</h2>
+                        <p>{blog.excerpt || blog.description?.substring(0, 150) + '...'}</p>
+                        <button className="btn-read">Read More</button>
+                      </div>
+                    </article>
+                  ))
+                ) : (
+                  <p>No blog posts found.</p>
+                )
+              )}
             </div>
 
             <aside className="blog-sidebar">

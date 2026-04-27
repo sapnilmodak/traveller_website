@@ -8,9 +8,36 @@ import './Testimonials.css';
 
 const Testimonials = () => {
   const reviews = [
-    { name: "John Doe", text: "Amazing experience! Ladakh is beautiful and Miracle Ladakh Adventure made it even better with their perfect planning.", rating: 5 },
-    { name: "Sarah Smith", text: "The trekking tour was well-organized. Our guide was very knowledgeable and helpful throughout the journey.", rating: 5 },
-    { name: "Mike Johnson", text: "Best travel agency for Ladakh. Highly recommended for their professional service and friendly staff.", rating: 5 }
+    { 
+      name: "Jav Blake", 
+      text: "We were a small group of motorcycle rookies from Australia that felt so well supported and looked after during our 8 day traverse of the beautiful Ladakh regions of Nubra, Pangong and Zanskar. We absolutely loved exploring the amazing landscapes with our trusty 411cc Himalayan Royal Enfields which were strong and reliable to ride. Many thanks to Miracle Ladakh Adventure company for hosting us. Would recommend for anyone looking to hire a bike in Ladakh!", 
+      rating: 5,
+      meta: "Local Guide · 36 reviews"
+    },
+    { 
+      name: "avadhut mahadik", 
+      text: "Incredible experience with this bike rental company. We rented 6 day 2Nos. Himalayan 450s and it was perfect. Their team was extremely responsive and professional, answering all our questions quickly and thoroughly. The bikes themselves were in perfect condition – well-maintained, clean, and clearly prepared with care.", 
+      rating: 5,
+      meta: "Local Guide · 18 reviews"
+    },
+    { 
+      name: "Féliot Benjamin", 
+      text: "We had an incredible experience with this bike rental company. We rented 3 Royal Enfield Himalayan 450s and it was perfect. Their team was extremely responsive and professional, answering all our questions quickly and thoroughly. The bikes themselves were in perfect condition. Reassuring knowing we had such a reliable team behind us, especially during longer or more remote routes.", 
+      rating: 5,
+      meta: "8 reviews"
+    },
+    { 
+      name: "Mohit Patil", 
+      text: "I rented a bike from Miracle Ladakh Adventure for 6 days and had a wonderful experience. The bike was in excellent condition, very reliable throughout the trip, and the team was supportive and professional. Their service made my Ladakh journey smooth and enjoyable. Highly recommended!", 
+      rating: 5,
+      meta: "7 reviews"
+    },
+    { 
+      name: "vijay chauhan", 
+      text: "Amazing place to rent bike, budget friendly, you will get bike gloves, riding jacket, pants, permits and more.", 
+      rating: 5,
+      meta: "6 reviews"
+    }
   ];
 
   return (
@@ -42,7 +69,8 @@ const Testimonials = () => {
                   <div className="review-rating">
                     {[...Array(review.rating)].map((_, i) => <FaStar key={i} />)}
                   </div>
-                  <h4 className="reviewer-name">- {review.name}</h4>
+                  <h4 className="reviewer-name">{review.name}</h4>
+                  {review.meta && <p className="reviewer-meta">{review.meta}</p>}
                 </div>
               </div>
             </SwiperSlide>

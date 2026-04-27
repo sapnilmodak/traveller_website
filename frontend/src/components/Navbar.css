@@ -117,6 +117,17 @@
 /* Dropdown Styles */
 .has-dropdown {
   cursor: pointer;
+  position: relative;
+}
+
+.manual-user-dropdown .dropdown {
+  left: auto;
+  right: 0;
+  transform: translateY(10px);
+}
+
+.manual-user-dropdown:hover .dropdown {
+  transform: translateY(0);
 }
 
 .dropdown {
@@ -205,4 +216,101 @@
   .nav-actions {
     gap: 20px;
   }
+}
+
+.user-nav {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.user-profile-trigger {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 8px 16px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: var(--white);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.navbar.scrolled .user-profile-trigger {
+  background: rgba(0, 0, 0, 0.05);
+  color: var(--text-dark);
+  border-color: rgba(0, 0, 0, 0.05);
+}
+
+.user-profile-trigger svg {
+  font-size: 1.2rem;
+}
+
+.user-profile-trigger span {
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.logout-btn {
+  width: 100%;
+  text-align: left;
+  padding: 12px 20px;
+  background: transparent;
+  color: #ef4444 !important;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.logout-btn:hover {
+  background: #fef2f2;
+}
+
+.clerk-user-button {
+  transform: scale(1.1);
+}
+
+/* Mobile Menu Styles (AntD Drawer Content) */
+.mobile-menu-content {
+  padding: 20px 0;
+}
+
+.mobile-menu-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.mobile-menu-list li {
+  margin-bottom: 10px;
+}
+
+.mobile-menu-list li a {
+  display: block;
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-dark);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.mobile-menu-list li a:hover {
+  background: rgba(135, 206, 235, 0.1);
+  color: var(--primary);
+  padding-left: 25px;
+}
+
+.mobile-menu-divider {
+  padding: 20px 20px 10px;
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--text-light);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
 }

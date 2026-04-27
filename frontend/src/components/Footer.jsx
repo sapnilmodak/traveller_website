@@ -1,14 +1,17 @@
 import React from 'react';
-import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin, FaPhone, FaEnvelope, FaMapMarkerAlt, FaPaperPlane } from 'react-icons/fa';
+import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin, FaPaperPlane } from 'react-icons/fa';
+import { Row, Col, Input, Button, Typography } from 'antd';
 import logo from '../assets/logo.png';
 import './Footer.css';
+
+const { Title, Text } = Typography;
 
 const Footer = () => {
   return (
     <footer className="footer-premium">
       <div className="container">
-        <div className="footer-top-row">
-          <div className="footer-brand-col">
+        <Row gutter={[40, 40]} className="footer-top-row">
+          <Col xs={24} lg={8} className="footer-brand-col">
             <div className="footer-logo">
               <img src={logo} alt="Miracle Ladakh Adventure" />
               <div className="logo-text">
@@ -23,37 +26,42 @@ const Footer = () => {
               <a href="#" className="social-pill"><FaInstagram /></a>
               <a href="#" className="social-pill"><FaLinkedin /></a>
             </div>
-          </div>
+          </Col>
 
-          <div className="footer-links-col">
-            <h3>Quick Links</h3>
+          <Col xs={12} sm={6} lg={4} className="footer-links-col">
+            <Title level={4}>Quick Links</Title>
             <ul>
               <li><a href="/packages">Holiday Packages</a></li>
               <li><a href="/activities">Activities</a></li>
               <li><a href="/cab">Cab Services</a></li>
               <li><a href="/rental">Bike Rental</a></li>
             </ul>
-          </div>
+          </Col>
 
-          <div className="footer-links-col">
-            <h3>Support</h3>
+          <Col xs={12} sm={6} lg={4} className="footer-links-col">
+            <Title level={4}>Support</Title>
             <ul>
               <li><a href="/about">About Us</a></li>
               <li><a href="/team">Our Team</a></li>
               <li><a href="/contact">Contact Us</a></li>
               <li><a href="/faq">Help & FAQ</a></li>
             </ul>
-          </div>
+          </Col>
 
-          <div className="footer-newsletter-col">
-            <h3>Newsletter</h3>
+          <Col xs={24} sm={12} lg={8} className="footer-newsletter-col">
+            <Title level={4}>Newsletter</Title>
             <p>Subscribe to get special offers and travel updates.</p>
-            <form className="newsletter-form">
-              <input type="email" placeholder="Your email address" />
-              <button type="submit"><FaPaperPlane /></button>
-            </form>
-          </div>
-        </div>
+            <div className="newsletter-form">
+              <Input 
+                placeholder="Your email address" 
+                size="large"
+                suffix={
+                  <Button type="primary" icon={<FaPaperPlane />} />
+                }
+              />
+            </div>
+          </Col>
+        </Row>
 
         <div className="footer-bottom-row">
           <p>&copy; {new Date().getFullYear()} Miracle Ladakh Adventure. Built for Explorers.</p>

@@ -1,0 +1,381 @@
+.package-detail-page {
+  background-color: #f8fafc;
+  min-height: 100vh;
+}
+
+/* Hero Swiper */
+.hero-swiper-container {
+  height: 60vh;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-swiper-container .mySwiper {
+  height: 100%;
+}
+
+.slide-content {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+.slide-content img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.slide-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.6));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 20px;
+}
+
+.slide-overlay h1 {
+  color: white;
+  font-size: 3.5rem;
+  font-weight: 800;
+  text-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  max-width: 900px;
+}
+
+/* Detail Content Layout */
+.detail-content-wrapper {
+  padding: 60px 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: 40px;
+}
+
+/* Left Column */
+.main-content section {
+  background: white;
+  padding: 30px;
+  border-radius: 16px;
+  margin-bottom: 30px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+}
+
+.info-summary {
+  display: flex;
+  gap: 20px;
+  background: none !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+}
+
+.info-badge {
+  background: #01B2A6;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.price-badge {
+  background: #f0562f;
+}
+
+.main-content h2 {
+  font-size: 1.8rem;
+  color: #1e293b;
+  margin-bottom: 20px;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.main-content h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 4px;
+  background: #01B2A6;
+  border-radius: 2px;
+}
+
+.overview p {
+  line-height: 1.8;
+  color: #475569;
+  font-size: 1.1rem;
+}
+
+.highlights ul {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.highlights li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #475569;
+}
+
+.highlights .icon {
+  color: #01B2A6;
+  font-size: 1.2rem;
+}
+
+.in-ex-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.inclusions, .exclusions {
+  height: 100%;
+}
+
+.inclusions h3, .exclusions h3 {
+  margin-bottom: 20px;
+  color: #1e293b;
+}
+
+.inclusions ul, .exclusions ul {
+  list-style: none;
+  padding: 0;
+}
+
+.inclusions li, .exclusions li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 12px;
+  color: #475569;
+  font-size: 0.95rem;
+}
+
+.icon.inc { color: #10b981; }
+.icon.exc { color: #ef4444; }
+
+/* Itinerary */
+.itinerary-list {
+  position: relative;
+  padding-left: 30px;
+}
+
+.itinerary-list::before {
+  content: '';
+  position: absolute;
+  left: 15px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: #e2e8f0;
+}
+
+.itinerary-item {
+  position: relative;
+  margin-bottom: 30px;
+}
+
+.day-circle {
+  position: absolute;
+  left: -45px;
+  width: 32px;
+  height: 32px;
+  background: #01B2A6;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  border: 4px solid white;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.day-content h4 {
+  margin-bottom: 8px;
+  color: #1e293b;
+}
+
+.day-content p {
+  color: #64748b;
+  font-size: 0.95rem;
+}
+
+.itinerary-more {
+  font-style: italic;
+  color: #94a3b8;
+  margin-top: 20px;
+}
+
+/* Sidebar & Form */
+.sidebar .sticky-sidebar {
+  position: sticky;
+  top: 100px;
+}
+
+.enquiry-card {
+  background: white;
+  padding: 35px;
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+  border: 1px solid rgba(226, 232, 240, 0.5);
+}
+
+.enquiry-card h3 {
+  font-size: 1.6rem;
+  color: #1e293b;
+  margin-bottom: 5px;
+}
+
+.enquiry-card p {
+  color: #64748b;
+  margin-bottom: 25px;
+  font-size: 0.9rem;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #64748b;
+  margin-bottom: 5px;
+}
+
+.enquiry-card input, 
+.enquiry-card textarea,
+.enquiry-card select {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  background: #f8fafc;
+}
+
+.enquiry-card input:focus, 
+.enquiry-card textarea:focus {
+  border-color: #01B2A6;
+  background: white;
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(1, 178, 166, 0.1);
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 15px;
+  background: #01B2A6;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+}
+
+.submit-btn:hover {
+  background: #00968b;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(1, 178, 166, 0.3);
+}
+
+.quick-contact {
+  margin-top: 30px;
+  padding-top: 25px;
+  border-top: 1px solid #f1f5f9;
+}
+
+.quick-contact p {
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 15px !important;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+  color: #475569;
+  font-size: 0.9rem;
+}
+
+.contact-item svg {
+  color: #01B2A6;
+}
+
+/* Loading & Error */
+.loading-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.error-message {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 100px 20px;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .detail-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .sidebar .sticky-sidebar {
+    position: static;
+  }
+}
+
+@media (max-width: 768px) {
+  .slide-overlay h1 {
+    font-size: 2.2rem;
+  }
+  
+  .highlights ul {
+    grid-template-columns: 1fr;
+  }
+  
+  .in-ex-grid {
+    grid-template-columns: 1fr;
+  }
+}

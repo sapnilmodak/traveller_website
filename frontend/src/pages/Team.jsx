@@ -1,26 +1,27 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import { TEAMS } from '../data/mockData';
+import { teamService } from '../services/api';
 import './Team.css';
 
 const Team = () => {
-  // Adding more team members for the full page
-  const extendedTeams = [
-    ...TEAMS,
-    {
-      title: "Soman Wangail",
-      sub_title: "Reservation Manager",
-      designation: "Reservation Manager",
-      teamSrc: "https://www.overlandescape.com/storage/teammanagements/5caefcb07ed5f151_karma-lobsang12.jpg"
-    },
-    {
-      title: "Tsewang Namgyal",
-      sub_title: "Ticketing Executive",
-      designation: "Ticketing Executive",
-      teamSrc: "https://www.overlandescape.com/storage/teammanagements/5caf0592f09ed158_urgain-dolker12.jpg"
-    }
-  ];
+  const [teamMembers, setTeamMembers] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchTeams = async () => {
+      try {
+        const { data } = await teamService.getAll();
+        setTeamMembers(data);
+      } catch (error) {
+        console.error('Error fetching team:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTeams();
+  }, []);
 
   return (
     <div className="team-page">
@@ -40,18 +41,26 @@ const Team = () => {
           </div>
           
           <div className="team-full-grid">
-            {extendedTeams.map((member, index) => (
-              <div key={index} className="team-card">
-                <div className="team-image">
-                  <img src={member.teamSrc} alt={member.title} />
-                </div>
-                <div className="team-info">
-                  <h3>{member.title}</h3>
-                  <p className="designation">{member.designation}</p>
-                  <p className="sub-title">{member.sub_title}</p>
-                </div>
-              </div>
-            ))}
+            {loading ? (
+              <div className="loading">Loading team...</div>
+            ) : (
+              teamMembers.length > 0 ? (
+                teamMembers.map((member, index) => (
+                  <div key={member._id || index} className="team-card">
+                    <div className="team-image">
+                      <img src={member.teamSrc} alt={member.title} />
+                    </div>
+                    <div className="team-info">
+                      <h3>{member.title}</h3>
+                      <p className="designation">{member.designation}</p>
+                      <p className="sub-title">{member.sub_title}</p>
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <p>No team members found.</p>
+              )
+            )}
           </div>
         </div>
       </section>

@@ -1,6 +1,7 @@
 import React from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import logo from '../assets/logo.png';
 import './AboutUs.css';
 
 const AboutUs = () => {
@@ -18,7 +19,7 @@ const AboutUs = () => {
         <div className="container">
           <div className="about-grid">
             <div className="about-image">
-              <img src="https://www.overlandescape.com/storage/settings/090523013516-290323043219-overlandescape-logo.png" alt="Overland Escape Logo" className="large-logo" />
+              <img src={logo} alt="Miracle Ladakh Adventure Logo" className="large-logo" />
             </div>
             <div className="about-text">
               <h2>Established in 1999</h2>

@@ -1,41 +1,61 @@
+.btn-link {
+  text-decoration: none;
+  width: 100%;
+  display: block;
+}
+
+.page-header {
+  padding: 80px 0;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  color: var(--white);
+  text-align: center;
+}
+
+.page-header h1.ant-typography {
+  color: var(--white) !important;
+  font-size: clamp(32px, 5vw, 48px);
+  font-weight: 900;
+  margin-bottom: 10px !important;
+}
+
+.page-header .ant-typography {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 18px;
+}
+
+.listing-section {
+  background: var(--bg-light);
+}
+
 .listing-grid {
   display: grid;
   grid-template-columns: 250px 1fr;
   gap: 40px;
 }
 
-.sidebar {
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
+.filter-card {
+  border-radius: 15px !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05) !important;
+  border: 1px solid rgba(0, 0, 0, 0.05) !important;
+  position: sticky;
+  top: 100px;
 }
 
-.filter-widget {
-  background: var(--bg-light);
-  padding: 20px;
-  border-radius: 8px;
+.filter-widget h4.ant-typography {
+  margin-bottom: 20px !important;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-dark) !important;
 }
 
-.filter-widget h3 {
-  font-size: 18px;
-  margin-bottom: 15px;
-  border-bottom: 2px solid var(--primary);
-  padding-bottom: 8px;
-  display: inline-block;
+.ant-checkbox-wrapper {
+  font-size: 14px !important;
+  color: var(--text-light) !important;
+  transition: all 0.3s ease;
 }
 
-.filter-widget label {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 14px;
-  margin-bottom: 12px;
-  cursor: pointer;
-  color: var(--text-light);
-}
-
-.filter-widget label:hover {
-  color: var(--primary);
+.ant-checkbox-wrapper:hover {
+  color: var(--primary) !important;
 }
 
 .items-grid {

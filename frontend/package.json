@@ -11,9 +11,14 @@
   "devDependencies": {
     "@vitejs/plugin-react-swc": "^4.3.0",
     "typescript": "~6.0.2",
-    "vite": "^8.0.10"
+    "vite": "^8.0.10",
+    "vite-plugin-pwa": "^1.2.0"
   },
   "dependencies": {
+    "@ant-design/icons": "^6.2.2",
+    "@clerk/clerk-react": "^5.61.6",
+    "antd": "^6.3.7",
+    "axios": "^1.15.2",
     "clsx": "^2.1.1",
     "framer-motion": "^12.38.0",
     "react": "^19.2.5",

@@ -11,28 +11,26 @@
   margin-bottom: 80px;
 }
 
-.footer-logo {
+.footer-top-row {
+  margin-bottom: 60px !important;
+}
+
+.footer-brand-col .footer-logo {
   display: flex;
   align-items: center;
   gap: 15px;
   margin-bottom: 25px;
 }
 
-.footer-logo img {
+.footer-brand-col .footer-logo img {
   height: 50px;
-  filter: brightness(0) invert(1);
-}
-
-.footer-logo .brand-name {
-  color: var(--white);
-  font-size: 24px;
 }
 
 .footer-desc {
-  color: rgba(255, 255, 255, 0.6);
-  font-size: 15px;
+  color: #94a3b8;
   line-height: 1.8;
   margin-bottom: 30px;
+  font-size: 15px;
 }
 
 .social-pills {
@@ -43,36 +41,44 @@
 .social-pill {
   width: 40px;
   height: 40px;
+  border-radius: 50%;
   background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--white);
-  transition: var(--transition);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .social-pill:hover {
   background: var(--primary);
-  border-color: var(--primary);
+  color: var(--white);
   transform: translateY(-3px);
+  border-color: var(--primary);
 }
 
-.footer-links-col h3, .footer-newsletter-col h3 {
+.footer-links-col h4.ant-typography {
+  color: var(--white) !important;
+  margin-bottom: 25px !important;
   font-size: 18px;
   font-weight: 700;
-  margin-bottom: 30px;
-  color: var(--white);
+}
+
+.footer-links-col ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 .footer-links-col ul li {
-  margin-bottom: 15px;
+  margin-bottom: 12px;
 }
 
 .footer-links-col ul li a {
-  color: rgba(255, 255, 255, 0.6);
-  font-size: 15px;
+  color: #94a3b8;
+  transition: all 0.3s ease;
+  font-size: 14px;
 }
 
 .footer-links-col ul li a:hover {
@@ -80,28 +86,31 @@
   padding-left: 5px;
 }
 
+.footer-newsletter-col h4.ant-typography {
+  color: var(--white) !important;
+  margin-bottom: 25px !important;
+}
+
 .footer-newsletter-col p {
-  color: rgba(255, 255, 255, 0.6);
-  font-size: 14px;
+  color: #94a3b8;
   margin-bottom: 20px;
+  font-size: 14px;
 }
 
-.newsletter-form {
-  display: flex;
-  gap: 10px;
-  background: rgba(255, 255, 255, 0.05);
-  padding: 8px;
-  border-radius: 14px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+.newsletter-form .ant-input-suffix {
+  margin-left: 0;
 }
 
-.newsletter-form input {
-  background: transparent;
-  border: none;
-  padding: 10px 15px;
-  color: var(--white);
-  flex-grow: 1;
-  font-family: inherit;
+.newsletter-form .ant-btn {
+  height: 40px;
+  border-radius: 0 8px 8px 0;
+  margin-right: -12px;
+}
+
+.newsletter-form .ant-input {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  color: white !important;
 }
 
 .newsletter-form input:focus {
