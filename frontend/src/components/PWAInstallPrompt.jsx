@@ -35,7 +35,12 @@ const PWAInstallPrompt = () => {
   }, [showPrompt, deferredPrompt]);
 
   const handleInstallClick = async () => {
-    if (!deferredPrompt) return;
+    if (!deferredPrompt) {
+      // If the browser hasn't given us the prompt yet, guide the user
+      alert('To install: Please click the "Install" icon in your browser address bar (top right) or selection "Add to Home Screen" in your browser menu.');
+      return;
+    }
+    
     deferredPrompt.prompt();
     const { outcome } = await deferredPrompt.userChoice;
     console.log(`User response to the install prompt: ${outcome}`);
