@@ -4,6 +4,10 @@ import { ClerkProvider } from "@clerk/clerk-react";
 import { ConfigProvider } from 'antd';
 import App from "./App";
 import "./index.css";
+import { registerSW } from 'virtual:pwa-register';
+
+// Explicitly register service worker
+registerSW({ immediate: true });
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 const isClerkValid = PUBLISHABLE_KEY && PUBLISHABLE_KEY.startsWith('pk_');
