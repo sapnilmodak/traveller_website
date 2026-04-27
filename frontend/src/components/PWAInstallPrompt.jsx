@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { IoDownloadOutline } from 'react-icons/io5';
+import { IoDownloadOutline, IoClose } from 'react-icons/io5';
+import logo from '../assets/logo.png';
 
 const PWAInstallPrompt = () => {
   const [deferredPrompt, setDeferredPrompt] = useState(null);
@@ -7,12 +8,10 @@ const PWAInstallPrompt = () => {
 
   useEffect(() => {
     const handler = (e) => {
-      // Prevent Chrome 67 and earlier from automatically showing the prompt
       e.preventDefault();
-      // Stash the event so it can be triggered later.
       setDeferredPrompt(e);
-      // Update UI notify the user they can add to home screen
-      setShowPrompt(true);
+      // Delay showing the prompt slightly for better UX
+      setTimeout(() => setShowPrompt(true), 3000);
     };
 
     window.addEventListener('beforeinstallprompt', handler);
@@ -24,15 +23,9 @@ const PWAInstallPrompt = () => {
 
   const handleInstallClick = async () => {
     if (!deferredPrompt) return;
-
-    // Show the prompt
     deferredPrompt.prompt();
-
-    // Wait for the user to respond to the prompt
     const { outcome } = await deferredPrompt.userChoice;
     console.log(`User response to the install prompt: ${outcome}`);
-
-    // We've used the prompt, and can't use it again, throw it away
     setDeferredPrompt(null);
     setShowPrompt(false);
   };
@@ -40,32 +33,125 @@ const PWAInstallPrompt = () => {
   if (!showPrompt) return null;
 
   return (
-    <div className="fixed bottom-4 left-4 right-4 z-[9999] md:left-auto md:right-8 md:bottom-8 md:w-80">
-      <div className="bg-white rounded-2xl shadow-2xl p-4 border border-blue-100 flex items-center justify-between gap-4 animate-in fade-in slide-in-from-bottom-4 duration-500">
-        <div className="flex items-center gap-3">
-          <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center text-white text-2xl shadow-lg">
-            <IoDownloadOutline />
+    <div 
+      className="pwa-prompt-container"
+      style={{
+        position: 'fixed',
+        bottom: '110px', // Above the WhatsApp button
+        right: '20px',
+        zIndex: 10000,
+        maxWidth: '350px',
+        width: 'calc(100% - 40px)',
+        animation: 'slideUp 0.5s ease-out forwards'
+      }}
+    >
+      <div 
+        className="pwa-prompt-card"
+        style={{
+          background: 'white',
+          borderRadius: '20px',
+          boxShadow: '0 15px 40px rgba(0,0,0,0.15)',
+          padding: '20px',
+          border: '1px solid rgba(135, 206, 235, 0.2)',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '15px'
+        }}
+      >
+        <button 
+          onClick={() => setShowPrompt(false)}
+          style={{
+            position: 'absolute',
+            top: '10px',
+            right: '10px',
+            background: 'none',
+            border: 'none',
+            color: '#94a3b8',
+            cursor: 'pointer',
+            fontSize: '20px'
+          }}
+        >
+          <IoClose />
+        </button>
+
+        <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+          <div style={{
+            width: '60px',
+            height: '60px',
+            borderRadius: '15px',
+            overflow: 'hidden',
+            flexShrink: 0,
+            background: '#f8fafc',
+            display: 'flex',
+            alignItems: 'center',
+            justify-content: center
+          }}>
+            <img src={logo} alt="App Logo" style={{ width: '80%', height: 'auto' }} />
           </div>
           <div>
-            <h3 className="font-bold text-slate-800 text-sm">Install App</h3>
-            <p className="text-slate-500 text-xs">Access traveler offline</p>
+            <h3 style={{ margin: 0, fontSize: '16px', fontWeight: 800, color: '#1e293b' }}>
+              Miracle Ladakh Adventure
+            </h3>
+            <p style={{ margin: 0, fontSize: '13px', color: '#64748b' }}>
+              Install our app for a faster experience & offline access.
+            </p>
           </div>
         </div>
-        <div className="flex gap-2">
+
+        <div style={{ display: 'flex', gap: '10px' }}>
           <button 
             onClick={() => setShowPrompt(false)}
-            className="px-3 py-2 text-slate-400 hover:text-slate-600 transition-colors text-sm font-medium"
+            style={{
+              flex: 1,
+              padding: '12px',
+              borderRadius: '12px',
+              border: '1px solid #e2e8f0',
+              background: 'white',
+              color: '#64748b',
+              fontWeight: 700,
+              cursor: 'pointer',
+              fontSize: '14px'
+            }}
           >
             Later
           </button>
           <button 
             onClick={handleInstallClick}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-all shadow-md active:scale-95 text-sm font-bold"
+            style={{
+              flex: 2,
+              padding: '12px',
+              borderRadius: '12px',
+              border: 'none',
+              background: '#87CEEB',
+              color: 'white',
+              fontWeight: 800,
+              cursor: 'pointer',
+              fontSize: '14px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '8px',
+              boxShadow: '0 4px 12px rgba(135, 206, 235, 0.3)'
+            }}
           >
-            Install
+            <IoDownloadOutline fontSize="18px" />
+            Install Now
           </button>
         </div>
       </div>
+      <style>{`
+        @keyframes slideUp {
+          from { transform: translateY(100px); opacity: 0; }
+          to { transform: translateY(0); opacity: 1; }
+        }
+        @media (max-width: 480px) {
+          .pwa-prompt-container {
+            bottom: 90px !important;
+            right: 15px !important;
+            width: calc(100% - 30px) !important;
+          }
+        }
+      `}</style>
     </div>
   );
 };

@@ -10,10 +10,10 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.svg', 'pwa-192x192.png', 'pwa-512x512.png', 'offline.html'],
       manifest: {
-        name: 'Traveler Website',
-        short_name: 'Traveler',
-        description: 'Explore the world with Traveler Website',
-        theme_color: '#2563eb',
+        name: 'Miracle Ladakh Adventure',
+        short_name: 'Miracle Ladakh',
+        description: 'Experience the miracle of nature with Miracle Ladakh Adventure',
+        theme_color: '#87CEEB',
         background_color: '#ffffff',
         display: 'standalone',
         icons: [
