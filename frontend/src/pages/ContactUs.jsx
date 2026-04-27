@@ -62,8 +62,7 @@ const ContactUs = () => {
                 <FaPhone className="contact-icon" />
                 <div className="contact-details">
                   <h3>Call Us</h3>
-                  <p>+91 6005994400</p>
-                  <p>+91 9858394400</p>
+                  <p>+91 9419283663</p>
                 </div>
               </div>
 

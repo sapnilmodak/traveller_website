@@ -167,7 +167,7 @@ const PackageDetail = () => {
           {images.map((img, index) => (
             <SwiperSlide key={index}>
               <div className="slide-content">
-                <img src={img.startsWith('http') ? img : `http://localhost:5000${img}`} alt={`${item.title} - ${index + 1}`} />
+                <img src={img.startsWith('http') ? img : `${import.meta.env.VITE_API_URL.replace('/api', '')}${img}`} alt={`${item.title} - ${index + 1}`} />
                 <div className="slide-overlay">
                   <motion.h1 
                     initial={{ opacity: 0, y: 20 }}
@@ -344,7 +344,7 @@ const PackageDetail = () => {
                 <div className="quick-contact">
                   <p>Or Contact Us Directly:</p>
                   <div className="contact-item">
-                    <FaPhoneAlt /> <span>+91 12345 67890</span>
+                    <FaPhoneAlt /> <span>+91 9419283663</span>
                   </div>
                   <div className="contact-item">
                     <FaEnvelope /> <span>info@overlandescape.com</span>

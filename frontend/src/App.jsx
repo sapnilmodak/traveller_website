@@ -2,6 +2,7 @@ import React, { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { UserAuthProvider } from './context/UserAuthContext';
 import PWAInstallPrompt from './components/PWAInstallPrompt';
+import FloatingWhatsApp from './components/FloatingWhatsApp';
 import './index.css';
 
 // Lazy load pages
@@ -45,6 +46,7 @@ function App() {
           </Routes>
         </Suspense>
         <PWAInstallPrompt />
+        <FloatingWhatsApp />
       </Router>
     </UserAuthProvider>
   );
