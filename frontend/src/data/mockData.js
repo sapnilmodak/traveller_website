@@ -1,3 +1,10 @@
+import holidayImg from '../assets/themes/holiday.png';
+import motorbikeImg from '../assets/themes/motorbike.png';
+import trekkingImg from '../assets/themes/trekking.png';
+import wildlifeImg from '../assets/themes/wildlife.png';
+import adventureImg from '../assets/themes/adventure.png';
+import spiritualImg from '../assets/themes/spiritual.png';
+
 export const FEATURED_PACKAGES = [
   {
     "id": 307,
@@ -102,15 +109,15 @@ export const FEATURED_PACKAGES = [
 ];
 
 export const CATEGORIES = [
-  { title: "Holiday Package", src: "https://www.overlandescape.com/storage/themes/111123011638-6180db5ee4626147-family-01.jpg" },
-  { title: "Motorbike Tour", src: "https://www.overlandescape.com/storage/themes/111123011527-617e9336df52d193-motor-bike-tour.jpg" },
-  { title: "Trekking and Hiking", src: "https://www.overlandescape.com/storage/themes/617fdfe094cb4126_mount06.jpg" },
-  { title: "Birding & Wildlife Safari", src: "https://www.overlandescape.com/storage/themes/111123011745-617fdcce614d8187-snowleopard.jpg" },
-  { title: "Mountaineering", src: "https://www.overlandescape.com/storage/themes/111123011812-617fdfabbc30e187-mount05.jpg" },
-  { title: "Adventure Activities", src: "https://www.overlandescape.com/storage/themes/151223010041-activities1.jpg" },
-  { title: "Mountain Biking", src: "https://www.overlandescape.com/storage/themes/61810467d3909161_screenshot_2021-11-02_at_2_54_24_pm.png" },
-  { title: "Spiritual Tour", src: "https://www.overlandescape.com/storage/themes/111123011919-6183e4fee56e7169-buddha.jpg" },
-  { title: "Film & Photography", src: "https://www.overlandescape.com/storage/themes/111123011927-5cb97c9fc16c7128-film-photography.jpg" }
+  { title: "Holiday Package", thumbSrc: holidayImg },
+  { title: "Motorbike Tour", thumbSrc: motorbikeImg },
+  { title: "Trekking and Hiking", thumbSrc: trekkingImg },
+  { title: "Birding & Wildlife Safari", thumbSrc: wildlifeImg },
+  { title: "Mountaineering", thumbSrc: trekkingImg },
+  { title: "Adventure Activities", thumbSrc: adventureImg },
+  { title: "Mountain Biking", thumbSrc: motorbikeImg },
+  { title: "Spiritual Tour", thumbSrc: spiritualImg },
+  { title: "Film & Photography", thumbSrc: holidayImg }
 ];
 
 export const SHORT_ACTIVITIES = [
