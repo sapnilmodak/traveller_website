@@ -84,7 +84,7 @@ const PWAInstallPrompt = () => {
             background: '#f8fafc',
             display: 'flex',
             alignItems: 'center',
-            justify-content: center
+            justifyContent: 'center'
           }}>
             <img src={logo} alt="App Logo" style={{ width: '80%', height: 'auto' }} />
           </div>
