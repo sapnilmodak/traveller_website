@@ -37,6 +37,8 @@ export default defineConfig({
       },
       workbox: {
         globPatterns: ['**/*.{js,css,html,ico,png,svg}'],
+        navigateFallback: 'index.html',
+        navigateFallbackDenylist: [/^\/api/],
         runtimeCaching: [
           {
             urlPattern: ({ url }) => url.pathname.startsWith('/api'),
@@ -53,10 +55,9 @@ export default defineConfig({
             }
           }
         ],
-        offlineGoogleAnalytics: true,
-        navigateFallback: 'offline.html'
+        offlineGoogleAnalytics: true
       }
     })
   ],
-  base: './',
+  base: '/',
 })
