@@ -27,8 +27,7 @@ services:
     build: ./frontend
     container_name: traveler_frontend
     restart: unless-stopped
-    ports:
-      - "80:80"
+    # Port removed to avoid conflict with gateway
     depends_on:
       - backend
 
@@ -36,8 +35,7 @@ services:
     build: ./admin_frontend
     container_name: traveler_admin_frontend
     restart: unless-stopped
-    ports:
-      - "8080:80"
+    # Port removed to avoid conflict with gateway
     depends_on:
       - backend
 
