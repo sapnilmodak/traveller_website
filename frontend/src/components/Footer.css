@@ -1,18 +1,11 @@
 .footer-premium {
   background: var(--secondary);
   color: var(--white);
-  padding: 100px 0 40px;
+  padding: 80px 0 40px;
 }
 
 .footer-top-row {
-  display: grid;
-  grid-template-columns: 1.5fr 0.8fr 0.8fr 1.2fr;
-  gap: 60px;
-  margin-bottom: 80px;
-}
-
-.footer-top-row {
-  margin-bottom: 60px !important;
+  margin-bottom: 40px !important;
 }
 
 .footer-brand-col .footer-logo {
@@ -24,6 +17,25 @@
 
 .footer-brand-col .footer-logo img {
   height: 50px;
+  width: auto;
+}
+
+.logo-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-name {
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.brand-sub {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--primary);
+  letter-spacing: 1px;
 }
 
 .footer-desc {
@@ -31,6 +43,7 @@
   line-height: 1.8;
   margin-bottom: 30px;
   font-size: 15px;
+  max-width: 300px;
 }
 
 .social-pills {
@@ -63,6 +76,7 @@
   margin-bottom: 25px !important;
   font-size: 18px;
   font-weight: 700;
+  white-space: nowrap;
 }
 
 .footer-links-col ul {
@@ -79,57 +93,45 @@
   color: #94a3b8;
   transition: all 0.3s ease;
   font-size: 14px;
+  display: inline-block;
 }
 
 .footer-links-col ul li a:hover {
   color: var(--primary);
-  padding-left: 5px;
+  transform: translateX(5px);
 }
 
 .footer-newsletter-col h4.ant-typography {
   color: var(--white) !important;
-  margin-bottom: 25px !important;
+  margin-bottom: 20px !important;
 }
 
 .footer-newsletter-col p {
   color: #94a3b8;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
   font-size: 14px;
 }
 
-.newsletter-form .ant-input-suffix {
-  margin-left: 0;
-}
-
-.newsletter-form .ant-btn {
-  height: 40px;
-  border-radius: 0 8px 8px 0;
-  margin-right: -12px;
+.newsletter-form .ant-input-affix-wrapper {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  padding: 8px 8px 8px 16px !important;
+  border-radius: 12px !important;
 }
 
 .newsletter-form .ant-input {
-  background: rgba(255, 255, 255, 0.05) !important;
-  border-color: rgba(255, 255, 255, 0.1) !important;
+  background: transparent !important;
   color: white !important;
 }
 
-.newsletter-form input:focus {
-  outline: none;
-}
-
-.newsletter-form button {
-  width: 45px;
-  height: 45px;
-  background: var(--primary);
-  border: none;
-  border-radius: 10px;
-  color: var(--white);
-  cursor: pointer;
-  transition: var(--transition);
-}
-
-.newsletter-form button:hover {
-  background: var(--primary-dark);
+.newsletter-form .ant-btn-primary {
+  height: 40px !important;
+  width: 45px !important;
+  border-radius: 8px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--primary) !important;
 }
 
 .footer-bottom-row {
@@ -139,7 +141,7 @@
   justify-content: space-between;
   align-items: center;
   color: rgba(255, 255, 255, 0.4);
-  font-size: 14px;
+  font-size: 13px;
 }
 
 .footer-bottom-links {
@@ -147,23 +149,24 @@
   gap: 30px;
 }
 
+.footer-bottom-links a {
+  color: rgba(255, 255, 255, 0.4);
+}
+
 .footer-bottom-links a:hover {
   color: var(--white);
 }
 
-@media (max-width: 1024px) {
-  .footer-top-row {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 640px) {
-  .footer-top-row {
-    grid-template-columns: 1fr;
+@media (max-width: 768px) {
+  .footer-premium {
+    padding: 60px 0 30px;
   }
   .footer-bottom-row {
     flex-direction: column;
     gap: 20px;
     text-align: center;
+  }
+  .footer-links-col h4.ant-typography {
+    margin-bottom: 15px !important;
   }
 }
