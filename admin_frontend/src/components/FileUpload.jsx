@@ -27,7 +27,8 @@ const FileUpload = ({ onUploadSuccess, currentImage }) => {
       const { data } = await uploadImage(formData);
       // The backend returns a path like /uploads/filename.jpg
       // We prepend the base URL for the preview and save the path in the DB
-      const fullUrl = `http://localhost:5000${data.url}`;
+      const apiBase = import.meta.env.VITE_API_URL ? import.meta.env.VITE_API_URL.replace('/api', '') : 'http://localhost:5000';
+      const fullUrl = `${apiBase}${data.url}`;
       onUploadSuccess(fullUrl);
       setPreview(fullUrl);
     } catch (error) {
