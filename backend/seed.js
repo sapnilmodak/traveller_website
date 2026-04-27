@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const dotenv = require('dotenv');
 const bcrypt = require('bcryptjs');
 const Package = require('./models/Package');
 const Activity = require('./models/Activity');
@@ -10,37 +9,50 @@ const Blog = require('./models/Blog');
 const Team = require('./models/Team');
 const Admin = require('./models/Admin');
 
-dotenv.config();
+/**
+ * Upsert helper: inserts a document only if no document with the
+ * given unique field value exists. Skips silently if it already exists.
+ */
+const upsertByTitle = async (Model, doc, uniqueField = 'title') => {
+  const filter = { [uniqueField]: doc[uniqueField] };
+  const exists = await Model.findOne(filter);
+  if (!exists) {
+    await Model.create(doc);
+    return true; // inserted
+  }
+  return false; // skipped
+};
 
-const seedData = async () => {
+const seedDatabase = async () => {
   try {
-    await mongoose.connect(process.env.MONGO_URI);
-    console.log('Connected to MongoDB for seeding...');
+    console.log('🌱 Running auto-seed (skip duplicates)...');
 
-    // Clear existing data
-    await Promise.all([
-      Package.deleteMany(),
-      Activity.deleteMany(),
-      Cab.deleteMany(),
-      Rental.deleteMany(),
-      Hotel.deleteMany(),
-      Blog.deleteMany(),
-      Team.deleteMany(),
-      Admin.deleteMany(),
-    ]);
+    let inserted = 0;
+    let skipped = 0;
 
-    // Seed Admin
-    const hashedPassword = await bcrypt.hash('admin123', 10);
-    await Admin.create({
-      name: 'Super Admin',
-      email: 'admin@traveler.com',
-      password: hashedPassword,
-      role: 'admin'
-    });
-    console.log('Admin user created: admin@traveler.com / admin123');
+    const track = (wasInserted) => {
+      if (wasInserted) inserted++;
+      else skipped++;
+    };
 
-    // Seed Packages
-    await Package.create([
+    // --- Admin (unique by email) ---
+    const adminExists = await Admin.findOne({ email: 'admin@traveler.com' });
+    if (!adminExists) {
+      const hashedPassword = await bcrypt.hash('admin123', 10);
+      await Admin.create({
+        name: 'Super Admin',
+        email: 'admin@traveler.com',
+        password: hashedPassword,
+        role: 'admin'
+      });
+      console.log('   ✅ Admin user created: admin@traveler.com / admin123');
+      inserted++;
+    } else {
+      skipped++;
+    }
+
+    // --- Packages ---
+    const packages = [
       {
         title: "Magical Ladakh",
         thumbSrc: "https://images.unsplash.com/photo-1544735745-b89b182ae4b6?auto=format&fit=crop&q=80&w=800",
@@ -61,10 +73,11 @@ const seedData = async () => {
         description: "For those who seek thrill in the high altitudes.",
         highlights: ["Khardung La Pass", "Magnetic Hill", "Zanskar Rafting"]
       }
-    ]);
+    ];
+    for (const doc of packages) track(await upsertByTitle(Package, doc));
 
-    // Seed Activities
-    await Activity.create([
+    // --- Activities ---
+    const activities = [
       {
         title: "River Rafting",
         thumbSrc: "https://images.unsplash.com/photo-1530866495547-084969ef31e4?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
@@ -79,10 +92,11 @@ const seedData = async () => {
         price: 1500,
         description: "Double humped camel ride in Nubra Valley."
       }
-    ]);
+    ];
+    for (const doc of activities) track(await upsertByTitle(Activity, doc));
 
-    // Seed Cabs
-    await Cab.create([
+    // --- Cabs ---
+    const cabs = [
       {
         title: "Innova Crysta",
         seats: "6+1",
@@ -90,10 +104,11 @@ const seedData = async () => {
         thumbSrc: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
         src: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80"
       }
-    ]);
+    ];
+    for (const doc of cabs) track(await upsertByTitle(Cab, doc));
 
-    // Seed Rentals
-    await Rental.create([
+    // --- Rentals ---
+    const rentals = [
       {
         title: "Royal Enfield Himalayan",
         type: "Adventure",
@@ -102,10 +117,11 @@ const seedData = async () => {
         thumbSrc: "https://images.unsplash.com/photo-1558981806-ec527fa84c39?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
         src: "https://images.unsplash.com/photo-1558981806-ec527fa84c39?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80"
       }
-    ]);
+    ];
+    for (const doc of rentals) track(await upsertByTitle(Rental, doc));
 
-    // Seed Hotels
-    await Hotel.create([
+    // --- Hotels ---
+    const hotels = [
       {
         title: "The Grand Dragon Ladakh",
         location: "Leh",
@@ -114,10 +130,11 @@ const seedData = async () => {
         thumbSrc: "https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
         src: "https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80"
       }
-    ]);
+    ];
+    for (const doc of hotels) track(await upsertByTitle(Hotel, doc));
 
-    // Seed Blogs
-    await Blog.create([
+    // --- Blogs ---
+    const blogs = [
       {
         title: "Best Time to Visit Ladakh",
         category: "Information",
@@ -127,24 +144,25 @@ const seedData = async () => {
         content: "Ladakh is a year-round destination, but the best time depends on what you want to experience. Summers are great for treks, while winters offer the famous Chadar Trek.",
         date: "2024-10-24"
       }
-    ]);
+    ];
+    for (const doc of blogs) track(await upsertByTitle(Blog, doc));
 
-    // Seed Team
-    await Team.create([
+    // --- Team ---
+    const teams = [
       {
         title: "Dorjay Namgyal",
         designation: "Founder & CEO",
         sub_title: "Managing Director",
         teamSrc: "https://www.overlandescape.com/storage/teammanagements/5caef924874e0110_dorjay-namgyal12.jpg"
       }
-    ]);
+    ];
+    for (const doc of teams) track(await upsertByTitle(Team, doc));
 
-    console.log('Database seeded successfully!');
-    process.exit();
+    console.log(`🌱 Seed complete — ${inserted} inserted, ${skipped} skipped (already exist).`);
   } catch (error) {
-    console.error('Error seeding database:', error);
-    process.exit(1);
+    console.error('❌ Seed error:', error.message);
+    // Don't crash the server if seeding fails
   }
 };
 
-seedData();
+module.exports = seedDatabase;

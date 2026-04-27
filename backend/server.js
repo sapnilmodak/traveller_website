@@ -2,13 +2,16 @@ const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const connectDB = require('./config/db');
+const seedDatabase = require('./seed');
 const path = require('path');
 
 // Load env vars
 dotenv.config();
 
-// Connect to database
-connectDB();
+// Connect to database, then auto-seed
+connectDB().then(() => {
+  seedDatabase();
+});
 
 const app = express();
 
