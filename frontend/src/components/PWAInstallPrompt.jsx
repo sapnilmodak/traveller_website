@@ -10,16 +10,29 @@ const PWAInstallPrompt = () => {
     const handler = (e) => {
       e.preventDefault();
       setDeferredPrompt(e);
-      // Delay showing the prompt slightly for better UX
       setTimeout(() => setShowPrompt(true), 3000);
     };
 
+    // If already installed, don't show anything
+    if (window.matchMedia('(display-mode: standalone)').matches) {
+      return;
+    }
+
     window.addEventListener('beforeinstallprompt', handler);
+
+    // FALLBACK: If the event doesn't fire (e.g. browser is being picky), 
+    // show the prompt anyway after 10 seconds to inform the user.
+    const timer = setTimeout(() => {
+      if (!showPrompt && !deferredPrompt) {
+        setShowPrompt(true);
+      }
+    }, 10000);
 
     return () => {
       window.removeEventListener('beforeinstallprompt', handler);
+      clearTimeout(timer);
     };
-  }, []);
+  }, [showPrompt, deferredPrompt]);
 
   const handleInstallClick = async () => {
     if (!deferredPrompt) return;
