@@ -15,7 +15,7 @@ const PackageCard = ({ item, type = 'package' }) => {
   const getImageUrl = (src) => {
     if (!src) return "https://images.unsplash.com/photo-1544735745-b89b182ae4b6?auto=format&fit=crop&q=80&w=800";
     if (src.startsWith('http')) return src;
-    return `${import.meta.env.VITE_API_URL.replace('/api', '')}${src}`;
+    return `${import.meta.env.VITE_API_URL.replace(/\/api$/, '')}${src}`;
   };
 
   return (

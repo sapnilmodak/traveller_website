@@ -38,7 +38,7 @@ const FileUpload = ({ onUploadSuccess, currentImage }) => {
       formData.append('image', compressedFile, compressedFile.name || file.name);
 
       const { data } = await uploadImage(formData);
-      const apiBase = import.meta.env.VITE_API_URL ? import.meta.env.VITE_API_URL.replace('/api', '') : 'http://localhost:5000';
+      const apiBase = import.meta.env.VITE_API_URL ? import.meta.env.VITE_API_URL.replace(/\/api$/, '') : 'http://localhost:5000';
       const fullUrl = `${apiBase}${data.url}`;
       
       // Update parent first, then set preview

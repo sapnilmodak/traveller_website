@@ -167,7 +167,7 @@ const PackageDetail = () => {
           {images.map((img, index) => (
             <SwiperSlide key={index}>
               <div className="slide-content">
-                <img src={img.startsWith('http') ? img : `${import.meta.env.VITE_API_URL.replace('/api', '')}${img}`} alt={`${item.title} - ${index + 1}`} />
+                <img src={img.startsWith('http') ? img : `${import.meta.env.VITE_API_URL.replace(/\/api$/, '')}${img}`} alt={`${item.title} - ${index + 1}`} />
                 <div className="slide-overlay">
                   <motion.h1 
                     initial={{ opacity: 0, y: 20 }}
