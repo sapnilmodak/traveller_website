@@ -63,6 +63,8 @@ const ContactUs = () => {
                 <div className="contact-details">
                   <h3>Call Us</h3>
                   <p>+91 9419283663</p>
+                  <p>+91 9622135607</p>
+                  <p>+91 7051109162</p>
                 </div>
               </div>
 
@@ -70,8 +72,7 @@ const ContactUs = () => {
                 <FaEnvelope className="contact-icon" />
                 <div className="contact-details">
                   <h3>Email Us</h3>
-                  <p>info@overlandescape.com</p>
-                  <p>overlandescape@gmail.com</p>
+                  <p>enquiry@miracleladakhadventure.com</p>
                 </div>
               </div>
 

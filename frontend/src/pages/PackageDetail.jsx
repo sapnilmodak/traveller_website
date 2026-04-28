@@ -344,10 +344,13 @@ const PackageDetail = () => {
                 <div className="quick-contact">
                   <p>Or Contact Us Directly:</p>
                   <div className="contact-item">
-                    <FaPhoneAlt /> <span>+91 9419283663</span>
+                    <FaPhoneAlt /> <span>+91 9419283663 / 9622135607</span>
                   </div>
                   <div className="contact-item">
-                    <FaEnvelope /> <span>info@overlandescape.com</span>
+                    <FaPhoneAlt /> <span>+91 7051109162</span>
+                  </div>
+                  <div className="contact-item">
+                    <FaEnvelope /> <span>enquiry@miracleladakhadventure.com</span>
                   </div>
                 </div>
               </div>

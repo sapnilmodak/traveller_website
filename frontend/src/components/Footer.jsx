@@ -48,12 +48,21 @@ const Footer = () => {
             </ul>
           </Col>
 
-          <Col xs={24} sm={12} lg={8} className="footer-newsletter-col">
+          <Col xs={12} sm={6} lg={4} className="footer-links-col">
+            <Title level={4}>Contact Us</Title>
+            <ul className="contact-list">
+              <li><Text type="secondary">+91 9419283663</Text></li>
+              <li><Text type="secondary">+91 9622135607</Text></li>
+              <li><Text type="secondary">+91 7051109162</Text></li>
+              <li><Text type="secondary">enquiry@miracleladakhadventure.com</Text></li>
+            </ul>
+          </Col>
+
+          <Col xs={24} sm={12} lg={4} className="footer-newsletter-col">
             <Title level={4}>Newsletter</Title>
-            <p>Subscribe to get special offers and travel updates.</p>
             <div className="newsletter-form">
               <Input 
-                placeholder="Your email address" 
+                placeholder="Email" 
                 size="large"
                 suffix={
                   <Button type="primary" icon={<FaPaperPlane />} />
