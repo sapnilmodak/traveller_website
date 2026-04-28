@@ -13,6 +13,18 @@ API.interceptors.request.use((config) => {
   return config;
 });
 
+// Add a response interceptor to handle 401 errors
+API.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response && error.response.status === 401) {
+      localStorage.removeItem('adminToken');
+      window.location.href = '/login';
+    }
+    return Promise.reject(error);
+  }
+);
+
 // Auth
 export const loginAdmin = (credentials) => API.post('/admin/login', credentials);
 

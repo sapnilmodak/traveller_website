@@ -38,14 +38,16 @@ const FileUpload = ({ onUploadSuccess, currentImage }) => {
       formData.append('image', compressedFile, compressedFile.name || file.name);
 
       const { data } = await uploadImage(formData);
-      // The backend returns a path like /uploads/filename.jpg
-      // We prepend the base URL for the preview and save the path in the DB
       const apiBase = import.meta.env.VITE_API_URL ? import.meta.env.VITE_API_URL.replace('/api', '') : 'http://localhost:5000';
       const fullUrl = `${apiBase}${data.url}`;
+      
+      // Update parent first, then set preview
       onUploadSuccess(fullUrl);
       setPreview(fullUrl);
     } catch (error) {
       console.error('Upload failed:', error);
+      // If upload fails, clear the preview since it's not valid on server
+      setPreview(''); 
       alert('Upload failed. Please try again.');
     } finally {
       setUploading(false);
