@@ -54,7 +54,10 @@ const ContactUs = () => {
                 <FaMapMarkerAlt className="contact-icon" />
                 <div className="contact-details">
                   <h3>Our Office</h3>
-                  <p>Skara Yokma, Councilor Quarter Road, Leh Ladakh, India - 194101</p>
+                  <p>Bharat Complex,
+                    Zangsti Road,
+                    Near Happy World Restaurant,
+                    Leh, UT Ladakh, 194101</p>
                 </div>
               </div>
 
@@ -92,45 +95,45 @@ const ContactUs = () => {
                 <div className="form-row">
                   <div className="form-group">
                     <label>Full Name</label>
-                    <input 
-                      type="text" 
+                    <input
+                      type="text"
                       name="name"
-                      placeholder="Enter your name" 
-                      required 
+                      placeholder="Enter your name"
+                      required
                       value={formData.name}
                       onChange={handleChange}
                     />
                   </div>
                   <div className="form-group">
                     <label>Email Address</label>
-                    <input 
-                      type="email" 
+                    <input
+                      type="email"
                       name="email"
-                      placeholder="Enter your email" 
-                      required 
+                      placeholder="Enter your email"
+                      required
                       value={formData.email}
                       onChange={handleChange}
                     />
                   </div>
                 </div>
-                
+
                 <div className="form-row">
                   <div className="form-group">
                     <label>Phone Number</label>
-                    <input 
-                      type="tel" 
+                    <input
+                      type="tel"
                       name="phone"
-                      placeholder="Enter your phone" 
+                      placeholder="Enter your phone"
                       value={formData.phone}
                       onChange={handleChange}
                     />
                   </div>
                   <div className="form-group">
                     <label>Subject</label>
-                    <input 
-                      type="text" 
+                    <input
+                      type="text"
                       name="subject"
-                      placeholder="Inquiry about..." 
+                      placeholder="Inquiry about..."
                       value={formData.subject}
                       onChange={handleChange}
                     />
@@ -139,9 +142,9 @@ const ContactUs = () => {
 
                 <div className="form-group">
                   <label>Your Message</label>
-                  <textarea 
+                  <textarea
                     name="message"
-                    rows="5" 
+                    rows="5"
                     placeholder="How can we help you?"
                     value={formData.message}
                     onChange={handleChange}
@@ -156,13 +159,13 @@ const ContactUs = () => {
       </section>
 
       <section className="map-section">
-        <iframe 
+        <iframe
           title="Leh Office"
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13264.444444444444!2d77.58!3d34.15!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38fdeb!2sLeh%2C%20Ladakh!5e0!3m2!1sen!2sin!4v1234567890" 
-          width="100%" 
-          height="450" 
-          style={{ border: 0 }} 
-          allowFullScreen="" 
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3301.3054148950396!2d77.5826287!3d34.164108299999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38fdeb3c47059839%3A0x253fbfd6e759a882!2sMiracle%20ladakh%20adventure!5e0!3m2!1sen!2sin!4v1777400011399!5m2!1sen!2sin"
+          width="100%"
+          height="450"
+          style={{ border: 0 }}
+          allowFullScreen=""
           loading="lazy"
         ></iframe>
       </section>

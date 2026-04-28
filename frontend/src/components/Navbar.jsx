@@ -75,7 +75,7 @@ const Navbar = () => {
                   <div className="manual-user-dropdown has-dropdown">
                     <div className="user-profile-trigger">
                       <FaUserCircle />
-                      <span>{user.name.split(' ')[0]}</span>
+                      <span>{user.name?.split(' ')[0]}</span>
                     </div>
                     <ul className="dropdown">
                       <li><Link to="/profile">My Profile</Link></li>

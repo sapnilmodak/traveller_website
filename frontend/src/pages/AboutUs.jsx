@@ -11,7 +11,7 @@ const AboutUs = () => {
       <div className="page-header">
         <div className="container">
           <h1>About Us</h1>
-          <p>Miracle Ladakh Adventure - Adventure With Care For Nature</p>
+          <p>Miracle Ladakh Adventure - Explore The World of Adventure Professionally Reliable</p>
         </div>
       </div>
 
@@ -25,10 +25,10 @@ const AboutUs = () => {
               <h2>Established in 1999</h2>
               <p>Miracle Ladakh Adventure is one of the leading travel companies in Ladakh, India. Since our inception in 1999, we have been committed to providing unique and personalized travel experiences to our guests.</p>
               <p>Our philosophy is "Adventure With Care For Nature". We believe in sustainable tourism and strive to minimize our environmental impact while maximizing the positive contribution to the local community.</p>
-              
+
               <h3>Our Mission</h3>
               <p>To provide high-quality travel services that showcase the beauty and culture of Ladakh while ensuring the safety and satisfaction of our guests.</p>
-              
+
               <h3>Our Values</h3>
               <ul>
                 <li><strong>Sustainability:</strong> We promote eco-friendly travel practices.</li>

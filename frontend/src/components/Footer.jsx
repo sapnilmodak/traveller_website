@@ -51,10 +51,10 @@ const Footer = () => {
           <Col xs={12} sm={6} lg={4} className="footer-links-col">
             <Title level={4}>Contact Us</Title>
             <ul className="contact-list">
-              <li><Text type="secondary">+91 9419283663</Text></li>
-              <li><Text type="secondary">+91 9622135607</Text></li>
-              <li><Text type="secondary">+91 7051109162</Text></li>
-              <li><Text type="secondary">enquiry@miracleladakhadventure.com</Text></li>
+              <li><Text type="secondary" style={{color: "#94a3b8"}}>+91 9419283663</Text></li>
+              <li><Text type="secondary" style={{color: "#94a3b8"}}>+91 9622135607</Text></li>
+              <li><Text type="secondary" style={{color: "#94a3b8"}}>+91 7051109162</Text></li>
+              <li><Text type="secondary" style={{color: "#94a3b8"}}>enquiry@miracleladakhadventure.com</Text></li>
             </ul>
           </Col>
 
