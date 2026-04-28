@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { FaCloudUploadAlt, FaTimes } from 'react-icons/fa';
+import imageCompression from 'browser-image-compression';
 import { uploadImage } from '../services/api';
 import './FileUpload.css';
 
@@ -11,19 +12,31 @@ const FileUpload = ({ onUploadSuccess, currentImage }) => {
     const file = e.target.files[0];
     if (!file) return;
 
-    // Show preview
+    // Show preview immediately for better UX
     const reader = new FileReader();
     reader.onloadend = () => {
       setPreview(reader.result);
     };
     reader.readAsDataURL(file);
 
-    // Upload to server
     setUploading(true);
-    const formData = new FormData();
-    formData.append('image', file);
 
     try {
+      // 1. Compress the image before uploading
+      const options = {
+        maxSizeMB: 5,            // Compress to under 5MB
+        maxWidthOrHeight: 1920,  // Scale down if larger than 1080p width
+        useWebWorker: true       // Use web worker to not block UI thread
+      };
+
+      console.log(`Original file size: ${(file.size / 1024 / 1024).toFixed(2)} MB`);
+      const compressedFile = await imageCompression(file, options);
+      console.log(`Compressed file size: ${(compressedFile.size / 1024 / 1024).toFixed(2)} MB`);
+
+      // 2. Upload the compressed image to server
+      const formData = new FormData();
+      formData.append('image', compressedFile, compressedFile.name || file.name);
+
       const { data } = await uploadImage(formData);
       // The backend returns a path like /uploads/filename.jpg
       // We prepend the base URL for the preview and save the path in the DB
@@ -57,8 +70,8 @@ const FileUpload = ({ onUploadSuccess, currentImage }) => {
         <label className={`upload-label ${uploading ? 'disabled' : ''}`}>
           <div className="upload-placeholder">
             <FaCloudUploadAlt className="upload-icon" />
-            <span>{uploading ? 'Uploading...' : 'Click to upload image'}</span>
-            <small>JPG, PNG or WEBP (Max 5MB)</small>
+            <span>{uploading ? 'Compressing & Uploading...' : 'Click to upload image'}</span>
+            <small>JPG, PNG or WEBP — Any size, auto-compressed to 5MB</small>
           </div>
           <input 
             type="file" 
