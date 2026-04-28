@@ -6,6 +6,13 @@ import FileUpload from '../components/FileUpload';
 import './Management.css';
 
 const ManagePackages = () => {
+  const getImageUrl = (url) => {
+    if (!url) return '';
+    if (url.startsWith('http')) return url;
+    const apiBase = import.meta.env.VITE_API_URL ? import.meta.env.VITE_API_URL.replace('/api', '') : 'http://localhost:5000';
+    return `${apiBase}${url}`;
+  };
+
   const [packages, setPackages] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -190,7 +197,7 @@ const ManagePackages = () => {
                 <tr key={pkg._id}>
                   <td>
                     <div className="item-title-cell">
-                      <img src={pkg.thumbSrc} alt="" className="table-thumb" />
+                      <img src={getImageUrl(pkg.thumbSrc)} alt="" className="table-thumb" />
                       <span>{pkg.title}</span>
                     </div>
                   </td>
@@ -307,7 +314,7 @@ const ManagePackages = () => {
               <label>Package Thumbnail</label>
               <FileUpload 
                 onUploadSuccess={(url) => setFormData({...formData, thumbSrc: url})} 
-                currentImage={formData.thumbSrc}
+                currentImage={getImageUrl(formData.thumbSrc)}
               />
             </div>
             <div className="form-group full-width">
