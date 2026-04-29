@@ -1,13 +1,19 @@
 const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
+
+// Load env vars at the absolute start
+dotenv.config();
+
+console.log('--- ENV DEBUG ---');
+console.log('RDS_HOSTNAME:', process.env.RDS_HOSTNAME || 'NOT FOUND');
+console.log('PORT:', process.env.PORT || 'NOT FOUND');
+console.log('-----------------');
+
 const { connectDB } = require('./config/db');
 const { initModels } = require('./models');
 const seedDatabase = require('./seed');
 const path = require('path');
-
-// Load env vars
-dotenv.config();
 
 const app = express();
 
@@ -26,14 +32,16 @@ app.use(cors({
     // Allow requests with no origin (like mobile apps or curl)
     if (!origin) return callback(null, true);
     
-    const isAllowed = allowedOrigins.indexOf(origin) !== -1 || 
+    console.log('Incoming Origin:', origin); // Log the origin for debugging
+
+    const isAllowed = allowedOrigins.filter(Boolean).some(o => origin.startsWith(o)) || 
                      origin.includes('miracleladakhadventure.com') ||
                      origin.includes('localhost');
 
     if (isAllowed) {
       callback(null, true);
     } else {
-      console.log('Origin not allowed:', origin);
+      console.log('Origin REJECTED by CORS:', origin);
       callback(new Error('Not allowed by CORS'));
     }
   },
