@@ -96,7 +96,7 @@ const startServer = async () => {
     // Sync models to database
     // In production, you might want to use migrations instead of sync({ alter: true })
     await sequelize.sync({ alter: true });
-    console.log('Database models synced');
+    console.log('Database models synced.');
 
     // Optional: Seed database if needed
     try {
