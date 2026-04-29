@@ -17,12 +17,12 @@ const Sidebar = () => {
     { path: '/packages', name: 'Packages', icon: <FaSuitcase /> },
     { path: '/activities', name: 'Activities', icon: <FaBiking /> },
     { path: '/cabs', name: 'Cabs', icon: <FaCar /> },
-    { path: '/rentals', name: 'Rentals', icon: <FaMotorcycle /> },
+    { path: '/rentals', name: 'Bike Rentals', icon: <FaMotorcycle /> },
+    { path: '/accessories', name: 'Gear Rentals', icon: <FaTools /> },
     { path: '/blogs', name: 'Blogs', icon: <FaEdit /> },
     { path: '/team', name: 'Team', icon: <FaUsers /> },
     { path: '/enquiries', name: 'Enquiries', icon: <FaQuestionCircle /> },
     { path: '/messages', name: 'Messages', icon: <FaEnvelope /> },
-    { path: '/accessories', name: 'Accessories', icon: <FaTools /> },
   ];
 
   return (
