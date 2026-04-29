@@ -48,6 +48,7 @@ const seedDatabase = async () => {
     const packages = [
       {
         title: "Magical Ladakh",
+        destination: "Leh, Ladakh",
         thumbSrc: "https://images.unsplash.com/photo-1544735745-b89b182ae4b6?auto=format&fit=crop&q=80&w=800",
         nights: 5,
         days: 6,
@@ -58,6 +59,7 @@ const seedDatabase = async () => {
       },
       {
         title: "Ladakh Adventure",
+        destination: "Nubra Valley, Ladakh",
         thumbSrc: "https://images.unsplash.com/photo-1506461883276-594a12b11cf3?auto=format&fit=crop&q=80&w=800",
         nights: 7,
         days: 8,

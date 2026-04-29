@@ -30,17 +30,14 @@ const Package = () => {
     },
     nights: {
       type: DataTypes.INTEGER,
-      allowNull: false,
       defaultValue: 0,
     },
     days: {
       type: DataTypes.INTEGER,
-      allowNull: false,
       defaultValue: 1,
     },
     price: {
       type: DataTypes.INTEGER,
-      allowNull: false,
       defaultValue: 0,
     },
     description: {

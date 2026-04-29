@@ -23,8 +23,14 @@ const allowedOrigins = [
 
 app.use(cors({
   origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl)
     if (!origin) return callback(null, true);
-    if (allowedOrigins.indexOf(origin) !== -1 || origin.includes('miracleladakhadventure.com')) {
+    
+    const isAllowed = allowedOrigins.indexOf(origin) !== -1 || 
+                     origin.includes('miracleladakhadventure.com') ||
+                     origin.includes('localhost');
+
+    if (isAllowed) {
       callback(null, true);
     } else {
       console.log('Origin not allowed:', origin);
@@ -85,14 +91,19 @@ const startServer = async () => {
     console.log('Database models synced');
 
     // Optional: Seed database if needed
-    await seedDatabase();
+    try {
+      await seedDatabase();
+    } catch (seedErr) {
+      console.error('Seed warning (non-fatal):', seedErr.message);
+    }
 
     app.listen(PORT, () => {
       console.log(`Server running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`);
     });
   } catch (error) {
     console.error('Failed to start server:', error.message);
-    process.exit(1);
+    // Wait a bit before exiting in dev to see logs
+    setTimeout(() => process.exit(1), 5000);
   }
 };
 
