@@ -62,8 +62,8 @@ const getAccessoryById = async (req, res) => {
 // @access  Private/Admin
 const createAccessory = async (req, res) => {
   try {
-    const { name, price, description, category } = req.body;
-    let thumbSrc = '';
+    const { name, price, description, category, thumbSrc: bodyThumbSrc } = req.body;
+    let thumbSrc = bodyThumbSrc || '';
 
     if (req.file) {
       thumbSrc = `/uploads/${req.file.filename}`;
@@ -96,6 +96,8 @@ const updateAccessory = async (req, res) => {
       const updateData = { ...req.body };
       if (req.file) {
         updateData.thumbSrc = `/uploads/${req.file.filename}`;
+      } else if (req.body.thumbSrc) {
+        updateData.thumbSrc = req.body.thumbSrc;
       }
 
       await accessory.update(updateData);

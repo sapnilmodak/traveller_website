@@ -29,8 +29,9 @@ const ManageAccessories = () => {
     fetchAccessories();
   }, []);
 
-  const fetchAccessories = async () => {
+    const fetchAccessories = async () => {
     try {
+      setLoading(true);
       const { data } = await accessoryService.getAll();
       setAccessories(data);
     } catch (error) {
@@ -101,7 +102,7 @@ const ManageAccessories = () => {
   return (
     <div className="management-page fade-in">
       <div className="page-header-actions">
-        <h2>Manage Accessories & Equipment</h2>
+        <h2>Manage Equipment Rentals</h2>
         <button className="btn btn-primary" onClick={openAddModal}>
           <FaPlus /> Add New Item
         </button>
@@ -118,7 +119,7 @@ const ManageAccessories = () => {
         <table className="admin-table">
           <thead>
             <tr>
-              <th>Item Name</th>
+              <th>Equipment Item</th>
               <th>Category</th>
               <th>Rent (Per Day)</th>
               <th>Actions</th>
@@ -126,18 +127,20 @@ const ManageAccessories = () => {
           </thead>
           <tbody>
             {loading ? (
-              <tr><td colSpan="4" className="text-center">Loading...</td></tr>
+              <tr><td colSpan="4" className="text-center">Loading equipment...</td></tr>
             ) : accessories.length > 0 ? (
               accessories.map((item) => (
                 <tr key={item._id}>
                   <td>
                     <div className="item-title-cell">
-                      {item.thumbSrc && <img src={getImageUrl(item.thumbSrc)} alt="" className="table-thumb" />}
+                      <img src={getImageUrl(item.thumbSrc)} alt="" className="table-thumb" />
                       <span>{item.name}</span>
                     </div>
                   </td>
-                  <td>{item.category}</td>
-                  <td>₹{item.price}</td>
+                  <td>
+                    <span className="badge badge-light">{item.category}</span>
+                  </td>
+                  <td>₹{item.price?.toLocaleString()}</td>
                   <td>
                     <div className="action-btns">
                       <button className="edit-btn" onClick={() => handleEdit(item)} title="Edit">
@@ -151,7 +154,7 @@ const ManageAccessories = () => {
                 </tr>
               ))
             ) : (
-              <tr><td colSpan="4" className="text-center">No equipment found.</td></tr>
+              <tr><td colSpan="4" className="text-center">No equipment items found.</td></tr>
             )}
           </tbody>
         </table>
@@ -160,12 +163,12 @@ const ManageAccessories = () => {
       <Modal 
         isOpen={isModalOpen} 
         onClose={() => setIsModalOpen(false)}
-        title={currentAccessory ? 'Edit Item' : 'Add New Item'}
+        title={currentAccessory ? 'Edit Equipment Item' : 'Add New Equipment Item'}
       >
         <form onSubmit={handleSubmit} className="admin-form">
           <div className="form-grid">
             <div className="form-group full-width">
-              <label>Item Name</label>
+              <label>Equipment Item Name</label>
               <input 
                 name="name" 
                 value={formData.name} 
@@ -189,23 +192,24 @@ const ManageAccessories = () => {
                 name="category" 
                 value={formData.category} 
                 onChange={handleInputChange} 
+                placeholder="e.g. Tents, Shoes, etc."
               />
             </div>
             <div className="form-group full-width">
-              <label>Description</label>
+              <label>Item Thumbnail</label>
+              <FileUpload 
+                onUploadSuccess={(url) => setFormData({...formData, thumbSrc: url})} 
+                currentImage={getImageUrl(formData.thumbSrc)}
+              />
+            </div>
+            <div className="form-group full-width">
+              <label>Description (Optional)</label>
               <textarea 
                 name="description" 
                 value={formData.description} 
                 onChange={handleInputChange} 
                 rows="2"
               ></textarea>
-            </div>
-            <div className="form-group full-width">
-              <label>Image (Optional)</label>
-              <FileUpload 
-                onUploadSuccess={(url) => setFormData({...formData, thumbSrc: url})} 
-                currentImage={getImageUrl(formData.thumbSrc)}
-              />
             </div>
           </div>
           <div className="form-actions">

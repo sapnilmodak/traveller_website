@@ -24,7 +24,7 @@ const EquipmentRental = () => {
       setAccessories(accessoriesRes.data);
       setCategories(categoriesRes.data);
     } catch (error) {
-      console.error('Error fetching gear data:', error);
+      console.error('Error fetching equipment data:', error);
     } finally {
       setLoading(false);
     }
@@ -47,7 +47,7 @@ const EquipmentRental = () => {
       });
       setAccessories(data);
     } catch (error) {
-      console.error('Error filtering gear:', error);
+      console.error('Error filtering equipment:', error);
     } finally {
       setLoading(false);
     }
@@ -66,7 +66,7 @@ const EquipmentRental = () => {
       <div className="page-header" style={{ background: 'linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url("https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80") center/cover no-repeat' }}>
         <div className="container">
           <h1>Equipment Rental</h1>
-          <p>Professional Gear for Your Himalayan Adventure</p>
+          <p>Professional Equipment for Your Himalayan Adventure</p>
         </div>
       </div>
 
@@ -75,7 +75,7 @@ const EquipmentRental = () => {
           <div className="listing-grid">
             <aside className="sidebar">
               <div className="filter-widget">
-                <h3>Gear Category</h3>
+                <h3>Equipment Category</h3>
                 {categories.length > 0 ? (
                   categories.map(cat => (
                     <label key={cat}>
@@ -94,7 +94,7 @@ const EquipmentRental = () => {
 
             <main className="main-content">
               {loading ? (
-                <div className="loading">Loading professional gear...</div>
+                <div className="loading">Loading professional equipment...</div>
               ) : (
                 <div className="items-grid">
                   {accessories.length > 0 ? (
@@ -109,7 +109,7 @@ const EquipmentRental = () => {
                           </span>
                           <h3>{item.name}</h3>
                           <p className="item-description" style={{ fontSize: '0.9rem', color: '#666', height: '40px', overflow: 'hidden' }}>
-                            {item.description || 'Quality gear for trekking and mountaineering.'}
+                            {item.description || 'Quality equipment for trekking and mountaineering.'}
                           </p>
                           <div className="item-price" style={{ borderTop: '1px solid #eee', paddingTop: '15px', marginTop: '15px' }}>
                             <span className="price-label">Daily Rent:</span>

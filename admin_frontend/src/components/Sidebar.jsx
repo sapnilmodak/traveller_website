@@ -18,7 +18,7 @@ const Sidebar = () => {
     { path: '/activities', name: 'Activities', icon: <FaBiking /> },
     { path: '/cabs', name: 'Cabs', icon: <FaCar /> },
     { path: '/rentals', name: 'Bike Rentals', icon: <FaMotorcycle /> },
-    { path: '/accessories', name: 'Gear Rentals', icon: <FaTools /> },
+    { path: '/accessories', name: 'Equipment Rentals', icon: <FaTools /> },
     { path: '/blogs', name: 'Blogs', icon: <FaEdit /> },
     { path: '/team', name: 'Team', icon: <FaUsers /> },
     { path: '/enquiries', name: 'Enquiries', icon: <FaQuestionCircle /> },
