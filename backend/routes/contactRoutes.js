@@ -5,7 +5,7 @@ const {
   getContacts,
   updateContactStatus
 } = require('../controllers/contactController');
-const { protect } = require('../middlewares/authMiddleware');
+const { protect } = require('../middleware/authMiddleware');
 
 // Public route to submit a contact message
 router.route('/').post(createContact);

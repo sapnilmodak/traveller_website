@@ -5,7 +5,7 @@ const {
   getEnquiries,
   updateEnquiryStatus
 } = require('../controllers/enquiryController');
-const { protect } = require('../middlewares/authMiddleware');
+const { protect } = require('../middleware/authMiddleware');
 
 // Public route to submit an enquiry
 router.route('/').post(createEnquiry);
