@@ -10,17 +10,27 @@ const connectDB = async () => {
     
     const dialectOptions = {};
     if (fs.existsSync(sslCertPath)) {
+      console.log('✅ SSL Certificate found at:', sslCertPath);
       dialectOptions.ssl = {
         require: true,
         rejectUnauthorized: true,
         ca: fs.readFileSync(sslCertPath).toString(),
       };
+    } else {
+      console.log('⚠️ SSL Certificate NOT FOUND at:', sslCertPath);
+    }
+
+    let password = process.env.RDS_PASSWORD || '';
+    // Clean password from accidental quotes
+    if ((password.startsWith('"') && password.endsWith('"')) || 
+        (password.startsWith("'") && password.endsWith("'"))) {
+      password = password.slice(1, -1);
     }
 
     sequelize = new Sequelize(
       process.env.RDS_DB_NAME,
       process.env.RDS_USERNAME,
-      process.env.RDS_PASSWORD,
+      password,
       {
         host: process.env.RDS_HOSTNAME,
         port: parseInt(process.env.RDS_PORT || '5432'),
@@ -42,6 +52,10 @@ const connectDB = async () => {
     return sequelize;
   } catch (error) {
     console.error(`Error connecting to PostgreSQL: ${error.message}`);
+    // Print more details for auth errors
+    if (error.message.includes('password authentication failed')) {
+      console.error('TIP: Check if your RDS_PASSWORD in .env has hidden quotes or special characters.');
+    }
     process.exit(1);
   }
 };
