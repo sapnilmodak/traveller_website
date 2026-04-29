@@ -36,6 +36,12 @@ const Activity = () => {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
     },
+    _id: {
+      type: DataTypes.VIRTUAL,
+      get() {
+        return this.id;
+      },
+    },
   }, {
     tableName: 'activities',
     timestamps: true,

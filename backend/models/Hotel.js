@@ -28,6 +28,12 @@ const Hotel = () => {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
     },
+    _id: {
+      type: DataTypes.VIRTUAL,
+      get() {
+        return this.id;
+      },
+    },
   }, {
     tableName: 'hotels',
     timestamps: true,

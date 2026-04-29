@@ -63,6 +63,12 @@ const Package = () => {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
     },
+    _id: {
+      type: DataTypes.VIRTUAL,
+      get() {
+        return this.id;
+      },
+    },
   }, {
     tableName: 'packages',
     timestamps: true,

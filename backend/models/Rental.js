@@ -41,6 +41,12 @@ const Rental = () => {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
     },
+    _id: {
+      type: DataTypes.VIRTUAL,
+      get() {
+        return this.id;
+      },
+    },
   }, {
     tableName: 'rentals',
     timestamps: true,

@@ -43,6 +43,12 @@ const Cab = () => {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
     },
+    _id: {
+      type: DataTypes.VIRTUAL,
+      get() {
+        return this.id;
+      },
+    },
   }, {
     tableName: 'cabs',
     timestamps: true,

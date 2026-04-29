@@ -27,6 +27,12 @@ const Team = () => {
     quote: {
       type: DataTypes.TEXT,
     },
+    _id: {
+      type: DataTypes.VIRTUAL,
+      get() {
+        return this.id;
+      },
+    },
   }, {
     tableName: 'teams',
     timestamps: true,
