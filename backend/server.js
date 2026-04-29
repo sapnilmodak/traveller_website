@@ -13,16 +13,16 @@ const app = express();
 
 // Middleware
 const allowedOrigins = [
-  process.env.FRONTEND_URL, 
-  process.env.ADMIN_URL, 
-  'http://localhost:5173', 
+  process.env.FRONTEND_URL,
+  process.env.ADMIN_URL,
+  'http://localhost:5173',
   'http://localhost:5174',
   'https://miracleladakhadventure.com',
   'https://admin.miracleladakhadventure.com'
 ];
 
 app.use(cors({
-  origin: function(origin, callback) {
+  origin: function (origin, callback) {
     if (!origin) return callback(null, true);
     if (allowedOrigins.indexOf(origin) !== -1 || origin.includes('miracleladakhadventure.com')) {
       callback(null, true);
@@ -78,14 +78,14 @@ const startServer = async () => {
   try {
     const sequelize = await connectDB();
     initModels();
-    
+
     // Sync models to database
     // In production, you might want to use migrations instead of sync({ alter: true })
     await sequelize.sync({ alter: true });
     console.log('Database models synced');
 
     // Optional: Seed database if needed
-    // await seedDatabase();
+    await seedDatabase();
 
     app.listen(PORT, () => {
       console.log(`Server running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`);
