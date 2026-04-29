@@ -22,20 +22,19 @@ const connectDB = async () => {
 
     let password = process.env.RDS_PASSWORD || '';
     
+    // --- BASE64 DECODE LOGIC ---
+    if (process.env.RDS_PASSWORD_B64) {
+      password = Buffer.from(process.env.RDS_PASSWORD_B64, 'base64').toString('utf-8');
+      console.log('✅ Password decoded from Base64');
+    }
+    // ---------------------------
+
     // --- SAFE DEBUG ---
     console.log('Password Debug:');
     console.log('- Length:', password.length);
     console.log('- First Char:', password[0] || 'NONE');
     console.log('- Last Char:', password[password.length - 1] || 'NONE');
-    console.log('- Has quotes:', (password.startsWith('"') || password.startsWith("'")));
     // ------------------
-
-    // Clean password from accidental quotes
-    if ((password.startsWith('"') && password.endsWith('"')) || 
-        (password.startsWith("'") && password.endsWith("'"))) {
-      password = password.slice(1, -1);
-      console.log('Password Cleaned! New Length:', password.length);
-    }
 
     sequelize = new Sequelize(
       process.env.RDS_DB_NAME,
