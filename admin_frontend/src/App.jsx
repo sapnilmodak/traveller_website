@@ -12,6 +12,7 @@ import ManageBlogs from './pages/ManageBlogs';
 import ManageTeam from './pages/ManageTeam';
 import Enquiries from './pages/Enquiries';
 import Messages from './pages/Messages';
+import ManageAccessories from './pages/ManageAccessories';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
             <Route path="/team" element={<ManageTeam />} />
             <Route path="/enquiries" element={<Enquiries />} />
             <Route path="/messages" element={<Messages />} />
+            <Route path="/accessories" element={<ManageAccessories />} />
             <Route path="/" element={<Navigate to="/dashboard" replace />} />
           </Route>
           

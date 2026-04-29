@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { 
   FaChartPie, FaSuitcase, FaBiking, FaCar, FaMotorcycle, 
   FaHotel, FaEdit, FaUsers, FaQuestionCircle, FaEnvelope,
-  FaSignOutAlt
+  FaSignOutAlt, FaTools
 } from 'react-icons/fa';
 import { useAuth } from '../context/AuthContext';
 import logo from '../assets/logo.png';
@@ -22,6 +22,7 @@ const Sidebar = () => {
     { path: '/team', name: 'Team', icon: <FaUsers /> },
     { path: '/enquiries', name: 'Enquiries', icon: <FaQuestionCircle /> },
     { path: '/messages', name: 'Messages', icon: <FaEnvelope /> },
+    { path: '/accessories', name: 'Accessories', icon: <FaTools /> },
   ];
 
   return (

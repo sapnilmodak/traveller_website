@@ -58,4 +58,9 @@ export const blogService = {
   getById: (id) => API.get(`/blogs/${id}`),
 };
 
+export const accessoryService = {
+  getAll: (params) => API.get('/accessories', { params }),
+  getCategories: () => API.get('/accessories/categories'),
+};
+
 export default API;

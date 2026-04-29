@@ -117,4 +117,12 @@ export const contactService = {
   delete: (id) => API.delete(`/contacts/${id}`),
 };
 
+export const accessoryService = {
+  getAll: (params) => API.get('/accessories', { params }),
+  getById: (id) => API.get(`/accessories/${id}`),
+  create: (data) => API.post('/accessories', data),
+  update: (id, data) => API.put(`/accessories/${id}`, data),
+  delete: (id) => API.delete(`/accessories/${id}`),
+};
+
 export default API;

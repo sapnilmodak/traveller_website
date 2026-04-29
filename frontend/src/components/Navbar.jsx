@@ -27,7 +27,11 @@ const Navbar = () => {
     { label: 'Packages', path: '/packages' },
     { label: 'Activities', path: '/activities' },
     { label: 'Cab', path: '/cab' },
-    { label: 'Rental', path: '/rental' },
+  ];
+
+  const rentalItems = [
+    { label: 'Bike Rental', path: '/rental' },
+    { label: 'Equipment Rental', path: '/equipment-rental' },
   ];
 
   const companyItems = [
@@ -54,6 +58,14 @@ const Navbar = () => {
                 {menuItems.map(item => (
                   <li key={item.path}><Link to={item.path}>{item.label}</Link></li>
                 ))}
+                <li className="has-dropdown">
+                  <Link to="#">Rentals <FaChevronDown className="chevron" /></Link>
+                  <ul className="dropdown">
+                    {rentalItems.map(item => (
+                      <li key={item.path}><Link to={item.path}>{item.label}</Link></li>
+                    ))}
+                  </ul>
+                </li>
                 <li className="has-dropdown">
                   <Link to="#">Company <FaChevronDown className="chevron" /></Link>
                   <ul className="dropdown">
@@ -113,6 +125,12 @@ const Navbar = () => {
         <div className="mobile-menu-content">
           <ul className="mobile-menu-list">
             {menuItems.map(item => (
+              <li key={item.path}>
+                <Link to={item.path} onClick={() => setIsMobileMenuOpen(false)}>{item.label}</Link>
+              </li>
+            ))}
+            <li className="mobile-menu-divider">Rentals</li>
+            {rentalItems.map(item => (
               <li key={item.path}>
                 <Link to={item.path} onClick={() => setIsMobileMenuOpen(false)}>{item.label}</Link>
               </li>
