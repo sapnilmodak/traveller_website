@@ -1,25 +1,36 @@
-const mongoose = require('mongoose');
+const { DataTypes } = require('sequelize');
+const { getSequelize } = require('../config/db');
 
-const teamSchema = new mongoose.Schema({
-  title: {
-    type: String,
-    required: true,
-    trim: true
-  },
-  designation: {
-    type: String,
-    required: true
-  },
-  sub_title: {
-    type: String
-  },
-  teamSrc: {
-    type: String, // Path to local image or URL
-    required: true
-  },
-  quote: {
-    type: String
-  }
-}, { timestamps: true });
+const Team = () => {
+  const sequelize = getSequelize();
+  return sequelize.define('Team', {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    title: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    designation: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    sub_title: {
+      type: DataTypes.STRING,
+    },
+    teamSrc: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    quote: {
+      type: DataTypes.TEXT,
+    },
+  }, {
+    tableName: 'teams',
+    timestamps: true,
+  });
+};
 
-module.exports = mongoose.model('Team', teamSchema);
+module.exports = Team;

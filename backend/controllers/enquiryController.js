@@ -1,58 +1,37 @@
-const Enquiry = require('../models/Enquiry');
+const { getModels } = require('../models');
 
-// @desc    Submit a new enquiry
-// @route   POST /api/enquiries
-// @access  Public
 const createEnquiry = async (req, res) => {
   try {
     const { name, phone, email, destination, travelDate, days, persons, comments } = req.body;
-
     if (!name || !phone || !email) {
       return res.status(400).json({ message: 'Name, phone, and email are required' });
     }
-
-    const enquiry = new Enquiry({
-      name,
-      phone,
-      email,
-      destination,
-      travelDate,
-      days,
-      persons,
-      comments
-    });
-
-    const savedEnquiry = await enquiry.save();
+    const { Enquiry } = getModels();
+    const savedEnquiry = await Enquiry.create({ name, phone, email, destination, travelDate, days, persons, comments });
     res.status(201).json(savedEnquiry);
   } catch (error) {
     res.status(500).json({ message: 'Server Error', error: error.message });
   }
 };
 
-// @desc    Get all enquiries
-// @route   GET /api/admin/enquiries
-// @access  Private/Admin
 const getEnquiries = async (req, res) => {
   try {
-    const enquiries = await Enquiry.find().sort({ createdAt: -1 });
+    const { Enquiry } = getModels();
+    const enquiries = await Enquiry.findAll({ order: [['createdAt', 'DESC']] });
     res.json(enquiries);
   } catch (error) {
     res.status(500).json({ message: 'Server Error', error: error.message });
   }
 };
 
-// @desc    Update enquiry status
-// @route   PUT /api/admin/enquiries/:id/status
-// @access  Private/Admin
 const updateEnquiryStatus = async (req, res) => {
   try {
     const { status } = req.body;
-    const enquiry = await Enquiry.findById(req.params.id);
-
+    const { Enquiry } = getModels();
+    const enquiry = await Enquiry.findByPk(req.params.id);
     if (enquiry) {
-      enquiry.status = status || enquiry.status;
-      const updatedEnquiry = await enquiry.save();
-      res.json(updatedEnquiry);
+      await enquiry.update({ status: status || enquiry.status });
+      res.json(enquiry);
     } else {
       res.status(404).json({ message: 'Enquiry not found' });
     }
@@ -61,8 +40,4 @@ const updateEnquiryStatus = async (req, res) => {
   }
 };
 
-module.exports = {
-  createEnquiry,
-  getEnquiries,
-  updateEnquiryStatus
-};
+module.exports = { createEnquiry, getEnquiries, updateEnquiryStatus };

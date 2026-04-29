@@ -1,19 +1,52 @@
-const mongoose = require('mongoose');
+const { DataTypes } = require('sequelize');
+const { getSequelize } = require('../config/db');
 
-const enquirySchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  phone: { type: String, required: true },
-  email: { type: String, required: true },
-  destination: { type: String },
-  travelDate: { type: Date },
-  days: { type: Number },
-  persons: { type: Number },
-  comments: { type: String },
-  status: {
-    type: String,
-    enum: ['Pending', 'Contacted', 'Converted', 'Closed'],
-    default: 'Pending'
-  }
-}, { timestamps: true });
+const Enquiry = () => {
+  const sequelize = getSequelize();
+  return sequelize.define('Enquiry', {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    phone: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    destination: {
+      type: DataTypes.STRING,
+    },
+    travelDate: {
+      type: DataTypes.DATEONLY,
+    },
+    days: {
+      type: DataTypes.INTEGER,
+    },
+    persons: {
+      type: DataTypes.INTEGER,
+    },
+    comments: {
+      type: DataTypes.TEXT,
+    },
+    status: {
+      type: DataTypes.STRING,
+      defaultValue: 'Pending',
+      validate: {
+        isIn: [['Pending', 'Contacted', 'Converted', 'Closed']],
+      },
+    },
+  }, {
+    tableName: 'enquiries',
+    timestamps: true,
+  });
+};
 
-module.exports = mongoose.model('Enquiry', enquirySchema);
+module.exports = Enquiry;

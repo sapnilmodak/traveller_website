@@ -1,16 +1,45 @@
-const mongoose = require('mongoose');
+const { DataTypes } = require('sequelize');
+const { getSequelize } = require('../config/db');
 
-const contactSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  phone: { type: String, required: true },
-  email: { type: String, required: true },
-  subject: { type: String, required: true },
-  message: { type: String, required: true },
-  status: {
-    type: String,
-    enum: ['Unread', 'Read', 'Replied'],
-    default: 'Unread'
-  }
-}, { timestamps: true });
+const Contact = () => {
+  const sequelize = getSequelize();
+  return sequelize.define('Contact', {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    phone: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    subject: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    message: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+    },
+    status: {
+      type: DataTypes.STRING,
+      defaultValue: 'Unread',
+      validate: {
+        isIn: [['Unread', 'Read', 'Replied']],
+      },
+    },
+  }, {
+    tableName: 'contacts',
+    timestamps: true,
+  });
+};
 
-module.exports = mongoose.model('Contact', contactSchema);
+module.exports = Contact;

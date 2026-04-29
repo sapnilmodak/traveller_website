@@ -1,21 +1,12 @@
-const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
-const Package = require('./models/Package');
-const Activity = require('./models/Activity');
-const Cab = require('./models/Cab');
-const Rental = require('./models/Rental');
-const Hotel = require('./models/Hotel');
-const Blog = require('./models/Blog');
-const Team = require('./models/Team');
-const Admin = require('./models/Admin');
+const { getModels } = require('./models');
 
 /**
  * Upsert helper: inserts a document only if no document with the
  * given unique field value exists. Skips silently if it already exists.
  */
 const upsertByTitle = async (Model, doc, uniqueField = 'title') => {
-  const filter = { [uniqueField]: doc[uniqueField] };
-  const exists = await Model.findOne(filter);
+  const exists = await Model.findOne({ where: { [uniqueField]: doc[uniqueField] } });
   if (!exists) {
     await Model.create(doc);
     return true; // inserted
@@ -25,6 +16,8 @@ const upsertByTitle = async (Model, doc, uniqueField = 'title') => {
 
 const seedDatabase = async () => {
   try {
+    const { Package, Activity, Cab, Rental, Hotel, Blog, Team, Admin } = getModels();
+    
     console.log('🌱 Running auto-seed (skip duplicates)...');
 
     let inserted = 0;
@@ -36,7 +29,7 @@ const seedDatabase = async () => {
     };
 
     // --- Admin (unique by email) ---
-    const adminExists = await Admin.findOne({ email: 'admin@traveler.com' });
+    const adminExists = await Admin.findOne({ where: { email: 'admin@traveler.com' } });
     if (!adminExists) {
       const hashedPassword = await bcrypt.hash('admin123', 10);
       await Admin.create({
@@ -80,14 +73,12 @@ const seedDatabase = async () => {
     const activities = [
       {
         title: "River Rafting",
-        thumbSrc: "https://images.unsplash.com/photo-1530866495547-084969ef31e4?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
         src: "https://images.unsplash.com/photo-1530866495547-084969ef31e4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80",
         price: 2500,
         description: "Thrilling rafting in the Zanskar river."
       },
       {
         title: "Camel Safari",
-        thumbSrc: "https://images.unsplash.com/photo-1524491991492-e31996457db7?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
         src: "https://images.unsplash.com/photo-1524491991492-e31996457db7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80",
         price: 1500,
         description: "Double humped camel ride in Nubra Valley."
@@ -101,7 +92,6 @@ const seedDatabase = async () => {
         title: "Innova Crysta",
         seats: "6+1",
         price: 5000,
-        thumbSrc: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
         src: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80"
       }
     ];
@@ -111,10 +101,8 @@ const seedDatabase = async () => {
     const rentals = [
       {
         title: "Royal Enfield Himalayan",
-        type: "Adventure",
         engine: "411cc",
         price: 2000,
-        thumbSrc: "https://images.unsplash.com/photo-1558981806-ec527fa84c39?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
         src: "https://images.unsplash.com/photo-1558981806-ec527fa84c39?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80"
       }
     ];
@@ -126,8 +114,6 @@ const seedDatabase = async () => {
         title: "The Grand Dragon Ladakh",
         location: "Leh",
         price: 12000,
-        rating: 5,
-        thumbSrc: "https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
         src: "https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80"
       }
     ];
@@ -137,8 +123,6 @@ const seedDatabase = async () => {
     const blogs = [
       {
         title: "Best Time to Visit Ladakh",
-        category: "Information",
-        thumbSrc: "https://images.unsplash.com/photo-1544085311-11a028465b03?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
         src: "https://images.unsplash.com/photo-1544085311-11a028465b03?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80",
         excerpt: "Ladakh is a year-round destination, but the best time depends on what you want to experience.",
         content: "Ladakh is a year-round destination, but the best time depends on what you want to experience. Summers are great for treks, while winters offer the famous Chadar Trek.",
@@ -161,7 +145,6 @@ const seedDatabase = async () => {
     console.log(`🌱 Seed complete — ${inserted} inserted, ${skipped} skipped (already exist).`);
   } catch (error) {
     console.error('❌ Seed error:', error.message);
-    // Don't crash the server if seeding fails
   }
 };
 

@@ -1,17 +1,13 @@
 const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
-const connectDB = require('./config/db');
+const { connectDB } = require('./config/db');
+const { initModels } = require('./models');
 const seedDatabase = require('./seed');
 const path = require('path');
 
 // Load env vars
 dotenv.config();
-
-// Connect to database, then auto-seed
-connectDB().then(() => {
-  seedDatabase();
-});
 
 const app = express();
 
@@ -27,9 +23,7 @@ const allowedOrigins = [
 
 app.use(cors({
   origin: function(origin, callback) {
-    // Allow requests with no origin (like mobile apps or curl)
     if (!origin) return callback(null, true);
-    
     if (allowedOrigins.indexOf(origin) !== -1 || origin.includes('miracleladakhadventure.com')) {
       callback(null, true);
     } else {
@@ -79,6 +73,27 @@ app.use('/api/upload', uploadRoutes);
 
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => {
-  console.log(`Server running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`);
-});
+// Initialize Database and Start Server
+const startServer = async () => {
+  try {
+    const sequelize = await connectDB();
+    initModels();
+    
+    // Sync models to database
+    // In production, you might want to use migrations instead of sync({ alter: true })
+    await sequelize.sync({ alter: true });
+    console.log('Database models synced');
+
+    // Optional: Seed database if needed
+    // await seedDatabase();
+
+    app.listen(PORT, () => {
+      console.log(`Server running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`);
+    });
+  } catch (error) {
+    console.error('Failed to start server:', error.message);
+    process.exit(1);
+  }
+};
+
+startServer();

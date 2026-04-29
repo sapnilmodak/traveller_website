@@ -1,65 +1,75 @@
-const mongoose = require('mongoose');
+const { DataTypes } = require('sequelize');
+const { getSequelize } = require('../config/db');
 
-const packageSchema = new mongoose.Schema({
-  title: {
-    type: String,
-    required: true,
-    trim: true
-  },
-  destination: {
-    type: String,
-    required: true,
-    trim: true
-  },
-  category: {
-    type: String,
-    trim: true,
-    default: 'Holiday Package'
-  },
-  url: {
-    type: String,
-    trim: true
-  },
-  thumbSrc: {
-    type: String, // Path to local image or URL
-    required: true
-  },
-  nights: {
-    type: Number,
-    required: true,
-    default: 0
-  },
-  days: {
-    type: Number,
-    required: true,
-    default: 1
-  },
-  price: {
-    type: Number,
-    required: true,
-    default: 0
-  },
-  description: {
-    type: String
-  },
-  highlights: [{
-    type: String
-  }],
-  inclusions: [{
-    type: String
-  }],
-  exclusions: [{
-    type: String
-  }],
-  itinerary: [{
-    day: Number,
-    title: String,
-    description: String
-  }],
-  isFeatured: {
-    type: Boolean,
-    default: false
-  }
-}, { timestamps: true });
+const Package = () => {
+  const sequelize = getSequelize();
+  return sequelize.define('Package', {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    title: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    destination: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    category: {
+      type: DataTypes.STRING,
+      defaultValue: 'Holiday Package',
+    },
+    url: {
+      type: DataTypes.STRING,
+    },
+    thumbSrc: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    nights: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 0,
+    },
+    days: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 1,
+    },
+    price: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 0,
+    },
+    description: {
+      type: DataTypes.TEXT,
+    },
+    highlights: {
+      type: DataTypes.JSONB,
+      defaultValue: [],
+    },
+    inclusions: {
+      type: DataTypes.JSONB,
+      defaultValue: [],
+    },
+    exclusions: {
+      type: DataTypes.JSONB,
+      defaultValue: [],
+    },
+    itinerary: {
+      type: DataTypes.JSONB,
+      defaultValue: [],
+    },
+    isFeatured: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+    },
+  }, {
+    tableName: 'packages',
+    timestamps: true,
+  });
+};
 
-module.exports = mongoose.model('Package', packageSchema);
+module.exports = Package;

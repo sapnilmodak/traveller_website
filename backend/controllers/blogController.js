@@ -1,4 +1,4 @@
-const Blog = require('../models/Blog');
+const { getModels } = require('../models');
 
 // @desc    Get all blogs
 // @route   GET /api/blogs
@@ -6,15 +6,17 @@ const Blog = require('../models/Blog');
 const getBlogs = async (req, res) => {
   try {
     const { isFeatured, limit } = req.query;
-    let query = {};
-    if (isFeatured) query.isFeatured = true;
+    const where = {};
+    if (isFeatured) where.isFeatured = true;
 
-    let blogs = Blog.find(query).sort({ createdAt: -1 });
-    if (limit) {
-      blogs = blogs.limit(parseInt(limit));
-    }
+    const options = {
+      where,
+      order: [['createdAt', 'DESC']],
+    };
+    if (limit) options.limit = parseInt(limit);
 
-    const results = await blogs;
+    const { Blog } = getModels();
+    const results = await Blog.findAll(options);
     res.json(results);
   } catch (error) {
     res.status(500).json({ message: 'Server Error', error: error.message });
@@ -26,7 +28,8 @@ const getBlogs = async (req, res) => {
 // @access  Public
 const getBlogById = async (req, res) => {
   try {
-    const blog = await Blog.findById(req.params.id);
+    const { Blog } = getModels();
+    const blog = await Blog.findByPk(req.params.id);
     if (blog) {
       res.json(blog);
     } else {
@@ -55,7 +58,8 @@ const createBlog = async (req, res) => {
       return res.status(400).json({ message: 'Title, excerpt, content, date and image are required' });
     }
 
-    const blog = new Blog({
+    const { Blog } = getModels();
+    const createdBlog = await Blog.create({
       title,
       src,
       excerpt,
@@ -65,7 +69,6 @@ const createBlog = async (req, res) => {
       isFeatured: req.body.isFeatured || false,
     });
 
-    const createdBlog = await blog.save();
     res.status(201).json(createdBlog);
   } catch (error) {
     res.status(500).json({ message: 'Server Error', error: error.message });
@@ -77,24 +80,26 @@ const createBlog = async (req, res) => {
 // @access  Private/Admin
 const updateBlog = async (req, res) => {
   try {
-    const blog = await Blog.findById(req.params.id);
+    const { Blog } = getModels();
+    const blog = await Blog.findByPk(req.params.id);
 
     if (blog) {
-      blog.title = req.body.title || blog.title;
-      blog.excerpt = req.body.excerpt || blog.excerpt;
-      blog.content = req.body.content || blog.content;
-      blog.author = req.body.author || blog.author;
-      blog.date = req.body.date || blog.date;
-      blog.isFeatured = req.body.isFeatured !== undefined ? req.body.isFeatured : blog.isFeatured;
+      const updateData = {};
+      if (req.body.title) updateData.title = req.body.title;
+      if (req.body.excerpt) updateData.excerpt = req.body.excerpt;
+      if (req.body.content) updateData.content = req.body.content;
+      if (req.body.author) updateData.author = req.body.author;
+      if (req.body.date) updateData.date = req.body.date;
+      if (req.body.isFeatured !== undefined) updateData.isFeatured = req.body.isFeatured;
 
       if (req.file) {
-        blog.src = `/uploads/${req.file.filename}`;
+        updateData.src = `/uploads/${req.file.filename}`;
       } else if (req.body.src) {
-        blog.src = req.body.src;
+        updateData.src = req.body.src;
       }
 
-      const updatedBlog = await blog.save();
-      res.json(updatedBlog);
+      await blog.update(updateData);
+      res.json(blog);
     } else {
       res.status(404).json({ message: 'Blog not found' });
     }
@@ -108,10 +113,11 @@ const updateBlog = async (req, res) => {
 // @access  Private/Admin
 const deleteBlog = async (req, res) => {
   try {
-    const blog = await Blog.findById(req.params.id);
+    const { Blog } = getModels();
+    const blog = await Blog.findByPk(req.params.id);
 
     if (blog) {
-      await blog.deleteOne();
+      await blog.destroy();
       res.json({ message: 'Blog removed' });
     } else {
       res.status(404).json({ message: 'Blog not found' });

@@ -1,4 +1,5 @@
-const Cab = require('../models/Cab');
+const { Op } = require('sequelize');
+const { getModels } = require('../models');
 
 // @desc    Get all cabs
 // @route   GET /api/cabs
@@ -6,23 +7,26 @@ const Cab = require('../models/Cab');
 const getCabs = async (req, res) => {
   try {
     const { isFeatured, type, destination, limit } = req.query;
-    let query = {};
-    if (isFeatured) query.isFeatured = true;
+    const where = {};
+
+    if (isFeatured) where.isFeatured = true;
     if (type) {
       const types = type.split(',');
-      query.type = { $in: types };
+      where.type = { [Op.in]: types };
     }
     if (destination) {
-      const destinations = destination.split(',').map(d => new RegExp(`^${d.trim()}$`, 'i'));
-      query.destination = { $in: destinations };
+      const destinations = destination.split(',').map(d => d.trim());
+      where.destination = { [Op.iLike]: { [Op.any]: destinations } };
     }
 
-    let cabs = Cab.find(query).sort({ createdAt: -1 });
-    if (limit) {
-      cabs = cabs.limit(parseInt(limit));
-    }
+    const options = {
+      where,
+      order: [['createdAt', 'DESC']],
+    };
+    if (limit) options.limit = parseInt(limit);
 
-    const results = await cabs;
+    const { Cab } = getModels();
+    const results = await Cab.findAll(options);
     res.json(results);
   } catch (error) {
     res.status(500).json({ message: 'Server Error', error: error.message });
@@ -34,8 +38,13 @@ const getCabs = async (req, res) => {
 // @access  Public
 const getTypes = async (req, res) => {
   try {
-    const types = await Cab.distinct('type');
-    res.json(types.filter(t => t != null && t.trim() !== ''));
+    const { Cab } = getModels();
+    const results = await Cab.findAll({
+      attributes: ['type'],
+      group: ['type'],
+      raw: true,
+    });
+    res.json(results.map(r => r.type).filter(t => t != null && t.trim() !== ''));
   } catch (error) {
     res.status(500).json({ message: 'Server Error', error: error.message });
   }
@@ -46,8 +55,13 @@ const getTypes = async (req, res) => {
 // @access  Public
 const getDestinations = async (req, res) => {
   try {
-    const destinations = await Cab.distinct('destination');
-    res.json(destinations.filter(d => d != null && d.trim() !== ''));
+    const { Cab } = getModels();
+    const results = await Cab.findAll({
+      attributes: ['destination'],
+      group: ['destination'],
+      raw: true,
+    });
+    res.json(results.map(r => r.destination).filter(d => d != null && d.trim() !== ''));
   } catch (error) {
     res.status(500).json({ message: 'Server Error', error: error.message });
   }
@@ -58,7 +72,8 @@ const getDestinations = async (req, res) => {
 // @access  Public
 const getCabById = async (req, res) => {
   try {
-    const cab = await Cab.findById(req.params.id);
+    const { Cab } = getModels();
+    const cab = await Cab.findByPk(req.params.id);
     if (cab) {
       res.json(cab);
     } else {
@@ -87,7 +102,8 @@ const createCab = async (req, res) => {
       return res.status(400).json({ message: 'Title, seats, and image are required' });
     }
 
-    const cab = new Cab({
+    const { Cab } = getModels();
+    const createdCab = await Cab.create({
       title,
       type,
       capacity,
@@ -100,7 +116,6 @@ const createCab = async (req, res) => {
       isFeatured: req.body.isFeatured || false,
     });
 
-    const createdCab = await cab.save();
     res.status(201).json(createdCab);
   } catch (error) {
     res.status(500).json({ message: 'Server Error', error: error.message });
@@ -112,27 +127,29 @@ const createCab = async (req, res) => {
 // @access  Private/Admin
 const updateCab = async (req, res) => {
   try {
-    const cab = await Cab.findById(req.params.id);
+    const { Cab } = getModels();
+    const cab = await Cab.findByPk(req.params.id);
 
     if (cab) {
-      cab.title = req.body.title || cab.title;
-      cab.type = req.body.type || cab.type;
-      cab.capacity = req.body.capacity || cab.capacity;
-      cab.price = req.body.price !== undefined ? req.body.price : cab.price;
-      cab.destination = req.body.destination || cab.destination;
-      cab.seats = req.body.seats || cab.seats;
-      cab.description = req.body.description || cab.description;
-      cab.thumbSrc = req.body.thumbSrc || cab.thumbSrc;
-      cab.isFeatured = req.body.isFeatured !== undefined ? req.body.isFeatured : cab.isFeatured;
+      const updateData = {};
+      if (req.body.title) updateData.title = req.body.title;
+      if (req.body.type) updateData.type = req.body.type;
+      if (req.body.capacity) updateData.capacity = req.body.capacity;
+      if (req.body.price !== undefined) updateData.price = req.body.price;
+      if (req.body.destination) updateData.destination = req.body.destination;
+      if (req.body.seats) updateData.seats = req.body.seats;
+      if (req.body.description) updateData.description = req.body.description;
+      if (req.body.thumbSrc) updateData.thumbSrc = req.body.thumbSrc;
+      if (req.body.isFeatured !== undefined) updateData.isFeatured = req.body.isFeatured;
 
       if (req.file) {
-        cab.src = `/uploads/${req.file.filename}`;
+        updateData.src = `/uploads/${req.file.filename}`;
       } else if (req.body.src) {
-        cab.src = req.body.src;
+        updateData.src = req.body.src;
       }
 
-      const updatedCab = await cab.save();
-      res.json(updatedCab);
+      await cab.update(updateData);
+      res.json(cab);
     } else {
       res.status(404).json({ message: 'Cab not found' });
     }
@@ -146,10 +163,11 @@ const updateCab = async (req, res) => {
 // @access  Private/Admin
 const deleteCab = async (req, res) => {
   try {
-    const cab = await Cab.findById(req.params.id);
+    const { Cab } = getModels();
+    const cab = await Cab.findByPk(req.params.id);
 
     if (cab) {
-      await cab.deleteOne();
+      await cab.destroy();
       res.json({ message: 'Cab removed' });
     } else {
       res.status(404).json({ message: 'Cab not found' });

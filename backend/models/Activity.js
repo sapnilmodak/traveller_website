@@ -1,35 +1,45 @@
-const mongoose = require('mongoose');
+const { DataTypes } = require('sequelize');
+const { getSequelize } = require('../config/db');
 
-const activitySchema = new mongoose.Schema({
-  title: {
-    type: String,
-    required: true,
-    trim: true
-  },
-  price: {
-    type: Number,
-    required: true,
-    default: 0
-  },
-  src: {
-    type: String, // Path to local image or URL
-    required: true
-  },
-  category: {
-    type: String,
-    default: 'Adventure'
-  },
-  destination: {
-    type: String,
-    trim: true
-  },
-  description: {
-    type: String
-  },
-  isFeatured: {
-    type: Boolean,
-    default: false
-  }
-}, { timestamps: true });
+const Activity = () => {
+  const sequelize = getSequelize();
+  return sequelize.define('Activity', {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    title: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    price: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 0,
+    },
+    src: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    category: {
+      type: DataTypes.STRING,
+      defaultValue: 'Adventure',
+    },
+    destination: {
+      type: DataTypes.STRING,
+    },
+    description: {
+      type: DataTypes.TEXT,
+    },
+    isFeatured: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+    },
+  }, {
+    tableName: 'activities',
+    timestamps: true,
+  });
+};
 
-module.exports = mongoose.model('Activity', activitySchema);
+module.exports = Activity;
