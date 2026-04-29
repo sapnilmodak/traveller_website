@@ -43,9 +43,17 @@ const Enquiry = () => {
         isIn: [['Pending', 'Contacted', 'Converted', 'Closed']],
       },
     },
+    _id: {
+      type: DataTypes.VIRTUAL,
+      get() {
+        return this.id;
+      },
+    },
   }, {
     tableName: 'enquiries',
     timestamps: true,
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true }
   });
 };
 

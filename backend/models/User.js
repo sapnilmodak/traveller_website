@@ -26,9 +26,17 @@ const User = () => {
       type: DataTypes.STRING,
       defaultValue: 'user',
     },
+    _id: {
+      type: DataTypes.VIRTUAL,
+      get() {
+        return this.id;
+      },
+    },
   }, {
     tableName: 'users',
     timestamps: true,
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true }
   });
 };
 

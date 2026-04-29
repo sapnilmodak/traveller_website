@@ -36,9 +36,17 @@ const Contact = () => {
         isIn: [['Unread', 'Read', 'Replied']],
       },
     },
+    _id: {
+      type: DataTypes.VIRTUAL,
+      get() {
+        return this.id;
+      },
+    },
   }, {
     tableName: 'contacts',
     timestamps: true,
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true }
   });
 };
 

@@ -26,9 +26,17 @@ const Admin = () => {
       type: DataTypes.STRING,
       defaultValue: 'admin',
     },
+    _id: {
+      type: DataTypes.VIRTUAL,
+      get() {
+        return this.id;
+      },
+    },
   }, {
     tableName: 'admins',
     timestamps: true,
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true }
   });
 };
 
