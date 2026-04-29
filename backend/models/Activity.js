@@ -45,6 +45,8 @@ const Activity = () => {
   }, {
     tableName: 'activities',
     timestamps: true,
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true }
   });
 };
 

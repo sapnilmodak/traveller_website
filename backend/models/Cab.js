@@ -52,6 +52,8 @@ const Cab = () => {
   }, {
     tableName: 'cabs',
     timestamps: true,
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true }
   });
 };
 

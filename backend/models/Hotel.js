@@ -37,6 +37,8 @@ const Hotel = () => {
   }, {
     tableName: 'hotels',
     timestamps: true,
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true }
   });
 };
 

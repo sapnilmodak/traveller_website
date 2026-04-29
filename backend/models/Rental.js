@@ -50,6 +50,8 @@ const Rental = () => {
   }, {
     tableName: 'rentals',
     timestamps: true,
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true }
   });
 };
 

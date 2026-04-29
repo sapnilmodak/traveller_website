@@ -72,6 +72,8 @@ const Package = () => {
   }, {
     tableName: 'packages',
     timestamps: true,
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true }
   });
 };
 

@@ -46,6 +46,8 @@ const Blog = () => {
   }, {
     tableName: 'blogs',
     timestamps: true,
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true }
   });
 };
 
