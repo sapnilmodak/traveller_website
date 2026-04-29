@@ -21,10 +21,20 @@ const connectDB = async () => {
     }
 
     let password = process.env.RDS_PASSWORD || '';
+    
+    // --- SAFE DEBUG ---
+    console.log('Password Debug:');
+    console.log('- Length:', password.length);
+    console.log('- First Char:', password[0] || 'NONE');
+    console.log('- Last Char:', password[password.length - 1] || 'NONE');
+    console.log('- Has quotes:', (password.startsWith('"') || password.startsWith("'")));
+    // ------------------
+
     // Clean password from accidental quotes
     if ((password.startsWith('"') && password.endsWith('"')) || 
         (password.startsWith("'") && password.endsWith("'"))) {
       password = password.slice(1, -1);
+      console.log('Password Cleaned! New Length:', password.length);
     }
 
     sequelize = new Sequelize(
