@@ -111,9 +111,8 @@ export const FEATURED_PACKAGES = [
 export const CATEGORIES = [
   { title: "Holiday Package", thumbSrc: holidayImg },
   { title: "Motorbike Tour", thumbSrc: motorbikeImg },
-  { title: "Trekking and Hiking", thumbSrc: trekkingImg },
+  { title: "Mountaineering & Trekking", thumbSrc: trekkingImg },
   { title: "Birding & Wildlife Safari", thumbSrc: wildlifeImg },
-  { title: "Mountaineering", thumbSrc: trekkingImg },
   { title: "Adventure Activities", thumbSrc: adventureImg },
   { title: "Mountain Biking", thumbSrc: motorbikeImg },
   { title: "Spiritual Tour", thumbSrc: spiritualImg },

@@ -1,10 +1,11 @@
-const Page = require('../models/Page');
+const { getModels } = require('../models');
 
 // @desc    Get all pages
 // @route   GET /api/pages
 // @access  Public
 const getPages = async (req, res) => {
   try {
+    const { Page } = getModels();
     const pages = await Page.findAll();
     res.json(pages);
   } catch (error) {
@@ -17,6 +18,7 @@ const getPages = async (req, res) => {
 // @access  Public
 const getPageBySlug = async (req, res) => {
   try {
+    const { Page } = getModels();
     const page = await Page.findOne({ where: { slug: req.params.slug } });
     if (page) {
       res.json(page);
@@ -33,6 +35,7 @@ const getPageBySlug = async (req, res) => {
 // @access  Private/Admin
 const upsertPage = async (req, res) => {
   try {
+    const { Page } = getModels();
     const { slug, title, content } = req.body;
     
     let page = await Page.findOne({ where: { slug } });

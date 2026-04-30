@@ -28,6 +28,10 @@ const Package = () => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    images: {
+      type: DataTypes.JSONB,
+      defaultValue: [],
+    },
     nights: {
       type: DataTypes.INTEGER,
       defaultValue: 0,

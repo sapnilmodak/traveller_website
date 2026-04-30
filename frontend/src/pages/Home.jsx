@@ -44,10 +44,12 @@ const Home = () => {
           'Adventure': adventureImg,
           'Spiritual': spiritualImg,
           'Trekking': trekkingImg,
+          'Mountaineering': trekkingImg,
           'Motorbike': motorbikeImg,
           'Mountain Biking': motorbikeImg,
           'Wildlife': holidayImg, // Can update with wildlifeImg if available
-          'Holiday': holidayImg
+          'Holiday': holidayImg,
+          'Mountaineering & Trekking': trekkingImg
         };
 
         const themes = cats.data.map(cat => ({

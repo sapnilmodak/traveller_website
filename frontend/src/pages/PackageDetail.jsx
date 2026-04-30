@@ -159,11 +159,10 @@ const PackageDetail = () => {
     "Anything not mentioned in inclusions"
   ];
 
-  const images = [
-    item.thumbSrc || item.src,
-    "https://images.unsplash.com/photo-1544735745-b89b182ae4b6?auto=format&fit=crop&q=80&w=1200",
-    "https://images.unsplash.com/photo-1506461883276-594a12b11cf3?auto=format&fit=crop&q=80&w=1200"
-  ];
+  // Use real images from the database if available
+  const displayImages = (item.images && item.images.length > 0) 
+    ? item.images 
+    : [item.thumbSrc || item.src];
 
   return (
     <div className="package-detail-page">
@@ -178,7 +177,7 @@ const PackageDetail = () => {
           autoplay={{ delay: 5000 }}
           className="mySwiper"
         >
-          {images.map((img, index) => (
+          {displayImages.map((img, index) => (
             <SwiperSlide key={index}>
               <div className="slide-content">
                 <img src={img.startsWith('http') ? img : `${import.meta.env.VITE_API_URL.replace(/\/api$/, '')}${img}`} alt={`${item.title} - ${index + 1}`} />

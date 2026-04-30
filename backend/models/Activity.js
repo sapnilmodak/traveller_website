@@ -22,6 +22,10 @@ const Activity = () => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    images: {
+      type: DataTypes.JSONB,
+      defaultValue: [],
+    },
     category: {
       type: DataTypes.STRING,
       defaultValue: 'Adventure',

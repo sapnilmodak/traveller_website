@@ -3,6 +3,7 @@ import { FaPlus, FaEdit, FaTrash, FaSearch } from 'react-icons/fa';
 import { packageService } from '../services/api';
 import Modal from '../components/Modal';
 import FileUpload from '../components/FileUpload';
+import MultiImageUpload from '../components/MultiImageUpload';
 import './Management.css';
 
 const ManagePackages = () => {
@@ -28,6 +29,7 @@ const ManagePackages = () => {
     category: '',
     isFeatured: false,
     thumbSrc: '',
+    images: [],
     highlights: [''],
     inclusions: [''],
     exclusions: [''],
@@ -105,6 +107,7 @@ const ManagePackages = () => {
       category: pkg.category || '',
       isFeatured: pkg.isFeatured || false,
       thumbSrc: pkg.thumbSrc || '',
+      images: pkg.images || [],
       highlights: pkg.highlights?.length ? pkg.highlights : [''],
       inclusions: pkg.inclusions?.length ? pkg.inclusions : [''],
       exclusions: pkg.exclusions?.length ? pkg.exclusions : [''],
@@ -152,6 +155,7 @@ const ManagePackages = () => {
       category: '',
       isFeatured: false,
       thumbSrc: '',
+      images: [],
       highlights: [''],
       inclusions: [''],
       exclusions: [''],
@@ -266,7 +270,7 @@ const ManagePackages = () => {
                 <option value="Holiday Package">Holiday Package</option>
                 <option value="Adventure Tour">Adventure Tour</option>
                 <option value="Spiritual Tour">Spiritual Tour</option>
-                <option value="Trekking and Hiking">Trekking and Hiking</option>
+                <option value="Mountaineering & Trekking">Mountaineering & Trekking</option>
                 <option value="Motorbike Tour">Motorbike Tour</option>
                 <option value="Mountain Biking">Mountain Biking</option>
                 <option value="Wildlife Safari">Wildlife Safari</option>
@@ -311,7 +315,15 @@ const ManagePackages = () => {
               />
             </div>
             <div className="form-group full-width">
-              <label>Package Thumbnail</label>
+              <label>Gallery Images (Max 3)</label>
+              <MultiImageUpload 
+                onUploadSuccess={(urls) => setFormData({...formData, images: urls})}
+                currentImages={formData.images}
+                maxImages={3}
+              />
+            </div>
+            <div className="form-group full-width">
+              <label>Thumbnail / Featured Image (Listing Card)</label>
               <FileUpload 
                 onUploadSuccess={(url) => setFormData({...formData, thumbSrc: url})} 
                 currentImage={getImageUrl(formData.thumbSrc)}
