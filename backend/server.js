@@ -73,6 +73,7 @@ const contactRoutes = require('./routes/contactRoutes');
 const uploadRoutes = require('./routes/uploadRoutes');
 const userRoutes = require('./routes/userRoutes');
 const accessoryRoutes = require('./routes/accessoryRoutes');
+const pageRoutes = require('./routes/pageRoutes');
 
 app.use('/api/admin', authRoutes);
 app.use('/api/users', userRoutes);
@@ -86,6 +87,7 @@ app.use('/api/teams', teamRoutes);
 app.use('/api/contacts', contactRoutes);
 app.use('/api/upload', uploadRoutes);
 app.use('/api/accessories', accessoryRoutes);
+app.use('/api/pages', pageRoutes);
 
 const PORT = process.env.PORT || 5000;
 

@@ -16,10 +16,16 @@ const Enquiry = () => {
     phone: {
       type: DataTypes.STRING,
       allowNull: false,
+      validate: {
+        is: /^[0-9]{10}$/i,
+      }
     },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
+      validate: {
+        isEmail: true,
+      }
     },
     destination: {
       type: DataTypes.STRING,

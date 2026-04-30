@@ -74,6 +74,20 @@ const PackageDetail = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Validations
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phoneRegex = /^[0-9]{10}$/;
+
+    if (!emailRegex.test(formData.email)) {
+      alert('Please enter a valid email address');
+      return;
+    }
+    if (!phoneRegex.test(formData.phone)) {
+      alert('Please enter a valid 10-digit phone number');
+      return;
+    }
+
     try {
       await enquiryService.submit(formData);
       alert('Enquiry submitted successfully! We will contact you soon.');
@@ -275,6 +289,7 @@ const PackageDetail = () => {
                         required 
                         value={formData.phone}
                         onChange={handleChange}
+                        maxLength="10"
                       />
                     </div>
                     <div className="form-group">

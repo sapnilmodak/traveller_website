@@ -47,7 +47,12 @@ const HeroSection = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <span className="hero-subtitle"><FaCompass /> Your Journey Starts Here</span>
+            <button 
+              className="hero-subtitle clickable-btn" 
+              onClick={() => navigate('/about')}
+            >
+              <FaMapMarkerAlt /> Explore The World of Adventure
+            </button>
             <Title level={1} className="hero-title">
               Discover the Miracle of <span className="text-gradient">Ladakh</span>
             </Title>

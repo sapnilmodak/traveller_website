@@ -18,6 +18,7 @@ const PackageDetail = lazy(() => import('./pages/PackageDetail'));
 const Login = lazy(() => import('./pages/Login'));
 const Profile = lazy(() => import('./pages/Profile'));
 const EquipmentRental = lazy(() => import('./pages/EquipmentRental'));
+const StaticPage = lazy(() => import('./pages/StaticPage'));
 
 // Loading fallback component
 const LoadingSpinner = () => (
@@ -44,6 +45,7 @@ function App() {
             <Route path="/activities" element={<Activities />} />
             <Route path="/detail/:type/:id" element={<PackageDetail />} />
             <Route path="/equipment-rental" element={<EquipmentRental />} />
+            <Route path="/policy/:slug" element={<StaticPage />} />
             <Route path="*" element={<Home />} /> 
           </Routes>
         </Suspense>

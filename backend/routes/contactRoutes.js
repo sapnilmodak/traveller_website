@@ -3,7 +3,8 @@ const router = express.Router();
 const {
   createContact,
   getContacts,
-  updateContactStatus
+  updateContactStatus,
+  deleteContact
 } = require('../controllers/contactController');
 const { protect } = require('../middleware/authMiddleware');
 
@@ -16,5 +17,8 @@ router.route('/')
 
 router.route('/:id/status')
   .put(protect, updateContactStatus);
+
+router.route('/:id')
+  .delete(protect, deleteContact);
 
 module.exports = router;

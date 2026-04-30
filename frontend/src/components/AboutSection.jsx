@@ -21,7 +21,7 @@ const AboutSection = () => {
           </Col>
           
           <Col xs={24} lg={12} className="about-content-premium">
-            <Text className="section-subtitle">Since 1999</Text>
+            <Text className="section-subtitle">Since 2000</Text>
             <Title level={2} className="section-title">Miracle Ladakh Adventure</Title>
             <Paragraph className="lead-text">
               We are more than just a travel agency; we are your gateway to the mesmerizing world of the Himalayas.
@@ -47,7 +47,12 @@ const AboutSection = () => {
               </div>
             </div>
 
-            <Button type="primary" size="large" className="mt-4">
+            <Button 
+              type="primary" 
+              size="large" 
+              className="mt-4"
+              onClick={() => window.location.href = '/about'}
+            >
               Learn More About Us
             </Button>
           </Col>

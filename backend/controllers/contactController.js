@@ -40,4 +40,19 @@ const updateContactStatus = async (req, res) => {
   }
 };
 
-module.exports = { createContact, getContacts, updateContactStatus };
+const deleteContact = async (req, res) => {
+  try {
+    const { Contact } = getModels();
+    const contact = await Contact.findByPk(req.params.id);
+    if (contact) {
+      await contact.destroy();
+      res.json({ message: 'Contact deleted successfully' });
+    } else {
+      res.status(404).json({ message: 'Contact not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: 'Server Error', error: error.message });
+  }
+};
+
+module.exports = { createContact, getContacts, updateContactStatus, deleteContact };

@@ -20,6 +20,21 @@ const ContactUs = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      alert('Please enter a valid email address');
+      return;
+    }
+
+    // Phone validation
+    const phoneRegex = /^[0-9]{10}$/;
+    if (!phoneRegex.test(formData.phone)) {
+      alert('Please enter a valid 10-digit phone number');
+      return;
+    }
+
     try {
       await contactService.submit(formData);
       alert('Message sent successfully! We will get back to you soon.');
@@ -123,9 +138,11 @@ const ContactUs = () => {
                     <input
                       type="tel"
                       name="phone"
-                      placeholder="Enter your phone"
+                      placeholder="Enter 10-digit phone number"
+                      required
                       value={formData.phone}
                       onChange={handleChange}
+                      maxLength="10"
                     />
                   </div>
                   <div className="form-group">

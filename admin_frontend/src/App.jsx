@@ -13,6 +13,7 @@ import ManageTeam from './pages/ManageTeam';
 import Enquiries from './pages/Enquiries';
 import Messages from './pages/Messages';
 import ManageAccessories from './pages/ManageAccessories';
+import ManagePages from './pages/ManagePages';
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
             <Route path="/enquiries" element={<Enquiries />} />
             <Route path="/messages" element={<Messages />} />
             <Route path="/accessories" element={<ManageAccessories />} />
+            <Route path="/policies" element={<ManagePages />} />
             <Route path="/" element={<Navigate to="/dashboard" replace />} />
           </Route>
           

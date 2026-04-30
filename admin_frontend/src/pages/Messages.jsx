@@ -106,6 +106,10 @@ const Messages = () => {
               <span>{selectedMessage.name} ({selectedMessage.email})</span>
             </div>
             <div className="detail-row">
+              <label>Phone:</label>
+              <span>{selectedMessage.phone || 'N/A'}</span>
+            </div>
+            <div className="detail-row">
               <label>Subject:</label>
               <span>{selectedMessage.subject || 'N/A'}</span>
             </div>

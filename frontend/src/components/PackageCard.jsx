@@ -10,7 +10,10 @@ const { Title, Text } = Typography;
 const PackageCard = ({ item, type = 'package' }) => {
   const isActivity = type === 'activity';
   const isCab = type === 'cab';
+  const isRental = type === 'rental';
+  const isAccessory = type === 'accessory';
   const itemId = item._id || item.id || item.title;
+  const itemTitle = item.title || item.name;
   
   const getImageUrl = (src) => {
     if (!src) return "https://images.unsplash.com/photo-1544735745-b89b182ae4b6?auto=format&fit=crop&q=80&w=800";
@@ -18,8 +21,14 @@ const PackageCard = ({ item, type = 'package' }) => {
     return `${import.meta.env.VITE_API_URL.replace(/\/api$/, '')}${src}`;
   };
 
+  const getDetailLink = () => {
+    if (isRental) return '/rental';
+    if (isAccessory) return '/equipment-rental';
+    return `/detail/${type}/${itemId}`;
+  };
+
   return (
-    <Link to={`/detail/${type}/${itemId}`} className="card-link">
+    <Link to={getDetailLink()} className="card-link">
       <motion.div 
         whileHover={{ y: -8 }}
         transition={{ type: 'spring', stiffness: 300 }}
@@ -53,7 +62,7 @@ const PackageCard = ({ item, type = 'package' }) => {
           }
         >
           <div className="card-body">
-            <Title level={4} className="card-title">{item.title}</Title>
+            <Title level={4} className="card-title">{itemTitle}</Title>
             
             <div className="card-price-row">
               <Space direction="vertical" size={0} className="price-info">

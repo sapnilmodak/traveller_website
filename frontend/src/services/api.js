@@ -63,4 +63,8 @@ export const accessoryService = {
   getCategories: () => API.get('/accessories/categories'),
 };
 
+export const pageService = {
+  getBySlug: (slug) => API.get(`/pages/${slug}`),
+};
+
 export default API;

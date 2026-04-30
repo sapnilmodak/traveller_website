@@ -125,4 +125,11 @@ export const accessoryService = {
   delete: (id) => API.delete(`/accessories/${id}`),
 };
 
+// Pages (Policies)
+export const pageService = {
+  getAll: () => API.get('/pages'),
+  getBySlug: (slug) => API.get(`/pages/${slug}`),
+  upsert: (data) => API.post('/pages', data),
+};
+
 export default API;

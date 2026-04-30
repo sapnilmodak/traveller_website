@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin, FaPaperPlane } from 'react-icons/fa';
+import { FaFacebook, FaTwitter, FaInstagram, FaYoutube, FaPaperPlane } from 'react-icons/fa';
 import { Row, Col, Input, Button, Typography } from 'antd';
 import logo from '../assets/logo.png';
 import './Footer.css';
@@ -7,6 +7,17 @@ import './Footer.css';
 const { Title, Text } = Typography;
 
 const Footer = () => {
+  const [newsletterEmail, setNewsletterEmail] = React.useState('');
+
+  const handleNewsletterSubmit = () => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(newsletterEmail)) {
+      alert('Please enter a valid email address');
+      return;
+    }
+    alert('Thank you for subscribing to our newsletter!');
+    setNewsletterEmail('');
+  };
   return (
     <footer className="footer-premium">
       <div className="container">
@@ -19,12 +30,11 @@ const Footer = () => {
                 <span className="brand-sub">Adventure</span>
               </div>
             </div>
-            <p className="footer-desc">Crafting extraordinary journeys in the heart of the Himalayas since 1999. Experience the miracle of nature with us.</p>
+            <p className="footer-desc">Crafting extraordinary journeys in the heart of the Himalayas since 2000. Experience the miracle of nature with us.</p>
             <div className="social-pills">
               <a href="#" className="social-pill"><FaFacebook /></a>
-              <a href="#" className="social-pill"><FaTwitter /></a>
+              <a href="https://www.youtube.com/@miracle_ladakh_adventure_" target="_blank" rel="noopener noreferrer" className="social-pill"><FaYoutube /></a>
               <a href="#" className="social-pill"><FaInstagram /></a>
-              <a href="#" className="social-pill"><FaLinkedin /></a>
             </div>
           </Col>
 
@@ -42,9 +52,7 @@ const Footer = () => {
             <Title level={4}>Support</Title>
             <ul>
               <li><a href="/about">About Us</a></li>
-              <li><a href="/team">Our Team</a></li>
               <li><a href="/contact">Contact Us</a></li>
-              <li><a href="/faq">Help & FAQ</a></li>
             </ul>
           </Col>
 
@@ -64,8 +72,14 @@ const Footer = () => {
               <Input 
                 placeholder="Email" 
                 size="large"
+                value={newsletterEmail}
+                onChange={(e) => setNewsletterEmail(e.target.value)}
                 suffix={
-                  <Button type="primary" icon={<FaPaperPlane />} />
+                  <Button 
+                    type="primary" 
+                    icon={<FaPaperPlane />} 
+                    onClick={handleNewsletterSubmit}
+                  />
                 }
               />
             </div>
@@ -75,8 +89,9 @@ const Footer = () => {
         <div className="footer-bottom-row">
           <p>&copy; {new Date().getFullYear()} Miracle Ladakh Adventure. Built for Explorers.</p>
           <div className="footer-bottom-links">
-            <a href="/privacy">Privacy Policy</a>
-            <a href="/terms">Terms of Service</a>
+            <a href="/policy/privacy-policy">Privacy Policy</a>
+            <a href="/policy/terms-conditions">Terms & Conditions</a>
+            <a href="/policy/refund-policy">Refund Policy</a>
           </div>
         </div>
       </div>
