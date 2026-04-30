@@ -201,7 +201,7 @@ const ManagePackages = () => {
                 <tr key={pkg._id}>
                   <td>
                     <div className="item-title-cell">
-                      <img src={getImageUrl(pkg.thumbSrc)} alt="" className="table-thumb" />
+                      <img src={getImageUrl(pkg.images?.[0] || pkg.thumbSrc)} alt="" className="table-thumb" />
                       <span>{pkg.title}</span>
                     </div>
                   </td>
@@ -315,18 +315,11 @@ const ManagePackages = () => {
               />
             </div>
             <div className="form-group full-width">
-              <label>Gallery Images (Max 3)</label>
+              <label>Package Images (Max 3) - First image will be used as Thumbnail</label>
               <MultiImageUpload 
-                onUploadSuccess={(urls) => setFormData({...formData, images: urls})}
+                onUploadSuccess={(urls) => setFormData({...formData, images: urls, thumbSrc: urls[0] || ''})}
                 currentImages={formData.images}
                 maxImages={3}
-              />
-            </div>
-            <div className="form-group full-width">
-              <label>Thumbnail / Featured Image (Listing Card)</label>
-              <FileUpload 
-                onUploadSuccess={(url) => setFormData({...formData, thumbSrc: url})} 
-                currentImage={getImageUrl(formData.thumbSrc)}
               />
             </div>
             <div className="form-group full-width">
