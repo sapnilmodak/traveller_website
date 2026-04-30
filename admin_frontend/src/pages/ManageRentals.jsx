@@ -3,6 +3,7 @@ import { FaPlus, FaEdit, FaTrash, FaSearch } from 'react-icons/fa';
 import { rentalService } from '../services/api';
 import Modal from '../components/Modal';
 import FileUpload from '../components/FileUpload';
+import MultiImageUpload from '../components/MultiImageUpload';
 import './Management.css';
 
 const ManageRentals = () => {
@@ -17,6 +18,7 @@ const ManageRentals = () => {
     price: '',
     thumbSrc: '',
     src: '',
+    images: [],
     description: '',
     destination: '',
     isFeatured: false
@@ -51,6 +53,7 @@ const ManageRentals = () => {
       price: rent.price || '',
       thumbSrc: rent.thumbSrc || '',
       src: rent.src || '',
+      images: rent.images || [],
       description: rent.description || '',
       destination: rent.destination || '',
       isFeatured: rent.isFeatured || false
@@ -93,6 +96,7 @@ const ManageRentals = () => {
       price: '',
       thumbSrc: '',
       src: '',
+      images: [],
       description: '',
       destination: '',
       isFeatured: false
@@ -137,7 +141,7 @@ const ManageRentals = () => {
                 <tr key={rent._id}>
                   <td>
                     <div className="item-title-cell">
-                      <img src={rent.thumbSrc} alt="" className="table-thumb" />
+                      <img src={rent.images?.[0] || rent.thumbSrc || rent.src} alt="" className="table-thumb" />
                       <span>{rent.title}</span>
                     </div>
                   </td>
@@ -225,10 +229,11 @@ const ManageRentals = () => {
               />
             </div>
             <div className="form-group full-width">
-              <label>Rental Image</label>
-              <FileUpload 
-                onUploadSuccess={(url) => setFormData({...formData, thumbSrc: url, src: url})} 
-                currentImage={formData.thumbSrc}
+              <label>Rental Images (Max 3) - First image will be used as Thumbnail</label>
+              <MultiImageUpload 
+                onUploadSuccess={(urls) => setFormData({...formData, images: urls, thumbSrc: urls[0] || '', src: urls[0] || ''})} 
+                currentImages={formData.images}
+                maxImages={3}
               />
             </div>
             <div className="form-group full-width">

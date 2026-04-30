@@ -62,7 +62,7 @@ const getAccessoryById = async (req, res) => {
 // @access  Private/Admin
 const createAccessory = async (req, res) => {
   try {
-    const { name, price, description, category, thumbSrc: bodyThumbSrc } = req.body;
+    const { name, price, description, category, thumbSrc: bodyThumbSrc, images } = req.body;
     let thumbSrc = bodyThumbSrc || '';
 
     if (req.file) {
@@ -76,6 +76,7 @@ const createAccessory = async (req, res) => {
       description,
       thumbSrc,
       category: category || 'Equipment',
+      images: images || [],
     });
 
     res.status(201).json(createdAccessory);

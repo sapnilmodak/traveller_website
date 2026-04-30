@@ -41,6 +41,10 @@ const Rental = () => {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
     },
+    images: {
+      type: DataTypes.JSONB,
+      defaultValue: [],
+    },
     _id: {
       type: DataTypes.VIRTUAL,
       get() {

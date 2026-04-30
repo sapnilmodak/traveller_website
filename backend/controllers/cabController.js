@@ -89,7 +89,7 @@ const getCabById = async (req, res) => {
 // @access  Private/Admin
 const createCab = async (req, res) => {
   try {
-    const { title, seats, type, capacity, price, destination, thumbSrc: bodyThumbSrc, description } = req.body;
+    const { title, seats, type, capacity, price, destination, thumbSrc: bodyThumbSrc, description, images } = req.body;
     let src = '';
 
     if (req.file) {
@@ -114,6 +114,7 @@ const createCab = async (req, res) => {
       src,
       description,
       isFeatured: req.body.isFeatured || false,
+      images: images || [],
     });
 
     res.status(201).json(createdCab);
@@ -141,6 +142,7 @@ const updateCab = async (req, res) => {
       if (req.body.description) updateData.description = req.body.description;
       if (req.body.thumbSrc) updateData.thumbSrc = req.body.thumbSrc;
       if (req.body.isFeatured !== undefined) updateData.isFeatured = req.body.isFeatured;
+      if (req.body.images !== undefined) updateData.images = req.body.images;
 
       if (req.file) {
         updateData.src = `/uploads/${req.file.filename}`;

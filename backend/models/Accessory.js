@@ -28,6 +28,10 @@ const Accessory = () => {
       type: DataTypes.STRING,
       defaultValue: 'Equipment',
     },
+    images: {
+      type: DataTypes.JSONB,
+      defaultValue: [],
+    },
     _id: {
       type: DataTypes.VIRTUAL,
       get() {

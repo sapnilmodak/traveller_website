@@ -3,6 +3,7 @@ import { FaPlus, FaEdit, FaTrash, FaSearch } from 'react-icons/fa';
 import { cabService } from '../services/api';
 import Modal from '../components/Modal';
 import FileUpload from '../components/FileUpload';
+import MultiImageUpload from '../components/MultiImageUpload';
 import './Management.css';
 
 const ManageCabs = () => {
@@ -19,6 +20,7 @@ const ManageCabs = () => {
     destination: '',
     thumbSrc: '',
     src: '',
+    images: [],
     description: '',
     isFeatured: false
   });
@@ -54,6 +56,7 @@ const ManageCabs = () => {
       destination: cab.destination || '',
       thumbSrc: cab.thumbSrc || '',
       src: cab.src || '',
+      images: cab.images || [],
       description: cab.description || '',
       isFeatured: cab.isFeatured || false
     });
@@ -97,6 +100,7 @@ const ManageCabs = () => {
       destination: '',
       thumbSrc: '',
       src: '',
+      images: [],
       description: '',
       isFeatured: false
     });
@@ -139,7 +143,7 @@ const ManageCabs = () => {
                 <tr key={cab._id}>
                   <td>
                     <div className="item-title-cell">
-                      <img src={cab.thumbSrc} alt="" className="table-thumb" />
+                      <img src={cab.images?.[0] || cab.thumbSrc || cab.src} alt="" className="table-thumb" />
                       <span>{cab.title}</span>
                     </div>
                   </td>
@@ -231,10 +235,11 @@ const ManageCabs = () => {
               />
             </div>
             <div className="form-group full-width">
-              <label>Vehicle Image</label>
-              <FileUpload 
-                onUploadSuccess={(url) => setFormData({...formData, thumbSrc: url, src: url})} 
-                currentImage={formData.thumbSrc}
+              <label>Vehicle Images (Max 3) - First image will be used as Thumbnail</label>
+              <MultiImageUpload 
+                onUploadSuccess={(urls) => setFormData({...formData, images: urls, thumbSrc: urls[0] || '', src: urls[0] || ''})} 
+                currentImages={formData.images}
+                maxImages={3}
               />
             </div>
             <div className="form-group full-width">

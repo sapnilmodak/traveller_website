@@ -5,7 +5,8 @@ import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import { motion } from 'framer-motion';
 import { 
   FaCalendarAlt, FaUsers, FaClock, FaCheckCircle, 
-  FaTimesCircle, FaMapMarkerAlt, FaPhoneAlt, FaEnvelope 
+  FaTimesCircle, FaMapMarkerAlt, FaPhoneAlt, FaEnvelope,
+  FaChevronLeft, FaChevronRight
 } from 'react-icons/fa';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -74,6 +75,29 @@ const PackageDetail = () => {
     fetchItem();
     window.scrollTo(0, 0);
   }, [type, id]);
+
+  // Auto-scroll logic for images
+  useEffect(() => {
+    if (!item || !displayImages || displayImages.length <= 1) return;
+
+    const interval = setInterval(() => {
+      handleNextImage();
+    }, 3000); // Change image every 3 seconds
+
+    return () => clearInterval(interval);
+  }, [activeImage, item]);
+
+  const handleNextImage = () => {
+    const currentIndex = displayImages.indexOf(activeImage);
+    const nextIndex = (currentIndex + 1) % displayImages.length;
+    setActiveImage(displayImages[nextIndex]);
+  };
+
+  const handlePrevImage = () => {
+    const currentIndex = displayImages.indexOf(activeImage);
+    const prevIndex = (currentIndex - 1 + displayImages.length) % displayImages.length;
+    setActiveImage(displayImages[prevIndex]);
+  };
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -194,25 +218,18 @@ const PackageDetail = () => {
               {item.title}
             </motion.h1>
           </div>
-        </div>
 
-        {displayImages.length > 1 && (
-          <div className="thumbnail-strip-container">
-            <div className="container">
-              <div className="thumbnail-grid">
-                {displayImages.map((img, index) => (
-                  <div 
-                    key={index} 
-                    className={`thumb-item ${activeImage === img ? 'active' : ''}`}
-                    onClick={() => setActiveImage(img)}
-                  >
-                    <img src={getFullImageUrl(img)} alt={`Thumbnail ${index + 1}`} />
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        )}
+          {displayImages.length > 1 && (
+            <>
+              <button className="nav-arrow left" onClick={handlePrevImage}>
+                <FaChevronLeft />
+              </button>
+              <button className="nav-arrow right" onClick={handleNextImage}>
+                <FaChevronRight />
+              </button>
+            </>
+          )}
+        </div>
       </div>
 
       <div className="detail-content-wrapper">

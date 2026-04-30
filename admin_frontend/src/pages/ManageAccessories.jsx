@@ -3,6 +3,7 @@ import { FaPlus, FaEdit, FaTrash, FaSearch } from 'react-icons/fa';
 import { accessoryService } from '../services/api';
 import Modal from '../components/Modal';
 import FileUpload from '../components/FileUpload';
+import MultiImageUpload from '../components/MultiImageUpload';
 import './Management.css';
 
 const ManageAccessories = () => {
@@ -22,7 +23,8 @@ const ManageAccessories = () => {
     price: '',
     category: 'Equipment',
     description: '',
-    thumbSrc: ''
+    thumbSrc: '',
+    images: []
   });
 
   useEffect(() => {
@@ -56,7 +58,8 @@ const ManageAccessories = () => {
       price: item.price,
       category: item.category || 'Equipment',
       description: item.description || '',
-      thumbSrc: item.thumbSrc || ''
+      thumbSrc: item.thumbSrc || '',
+      images: item.images || []
     });
     setIsModalOpen(true);
   };
@@ -94,7 +97,8 @@ const ManageAccessories = () => {
       price: '',
       category: 'Equipment',
       description: '',
-      thumbSrc: ''
+      thumbSrc: '',
+      images: []
     });
     setIsModalOpen(true);
   };
@@ -133,7 +137,7 @@ const ManageAccessories = () => {
                 <tr key={item._id}>
                   <td>
                     <div className="item-title-cell">
-                      <img src={getImageUrl(item.thumbSrc)} alt="" className="table-thumb" />
+                      <img src={getImageUrl(item.images?.[0] || item.thumbSrc)} alt="" className="table-thumb" />
                       <span>{item.name}</span>
                     </div>
                   </td>
@@ -196,10 +200,11 @@ const ManageAccessories = () => {
               />
             </div>
             <div className="form-group full-width">
-              <label>Item Thumbnail</label>
-              <FileUpload 
-                onUploadSuccess={(url) => setFormData({...formData, thumbSrc: url})} 
-                currentImage={getImageUrl(formData.thumbSrc)}
+              <label>Equipment Images (Max 3) - First image will be used as Thumbnail</label>
+              <MultiImageUpload 
+                onUploadSuccess={(urls) => setFormData({...formData, images: urls, thumbSrc: urls[0] || ''})} 
+                currentImages={formData.images}
+                maxImages={3}
               />
             </div>
             <div className="form-group full-width">

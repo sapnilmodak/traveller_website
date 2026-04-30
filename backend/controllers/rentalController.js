@@ -51,7 +51,7 @@ const getRentalById = async (req, res) => {
 
 const createRental = async (req, res) => {
   try {
-    const { title, engine, type, price, destination, thumbSrc: bodyThumbSrc, description } = req.body;
+    const { title, engine, type, price, destination, thumbSrc: bodyThumbSrc, description, images } = req.body;
     let src = '';
     if (req.file) { src = `/uploads/${req.file.filename}`; }
     else { src = req.body.src || ''; }
@@ -62,6 +62,7 @@ const createRental = async (req, res) => {
     const createdRental = await Rental.create({
       title, type, engine, price: price || 0, destination,
       thumbSrc: bodyThumbSrc || '', src, description, isFeatured: req.body.isFeatured || false,
+      images: images || [],
     });
     res.status(201).json(createdRental);
   } catch (error) {
@@ -83,6 +84,7 @@ const updateRental = async (req, res) => {
       if (req.body.description) updateData.description = req.body.description;
       if (req.body.thumbSrc) updateData.thumbSrc = req.body.thumbSrc;
       if (req.body.isFeatured !== undefined) updateData.isFeatured = req.body.isFeatured;
+      if (req.body.images !== undefined) updateData.images = req.body.images;
       if (req.file) { updateData.src = `/uploads/${req.file.filename}`; }
       else if (req.body.src) { updateData.src = req.body.src; }
       await rental.update(updateData);
