@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { pageService } from '../services/api';
 import { FaSave, FaFileAlt } from 'react-icons/fa';
 import './Management.css';
+import './ManagePages.css';
 
 const ManagePages = () => {
   const policyPages = [
@@ -113,60 +114,6 @@ const ManagePages = () => {
           </form>
         </div>
       </div>
-
-      <style jsx>{`
-        .policy-editor-layout {
-          display: grid;
-          grid-template-columns: 300px 1fr;
-          gap: 20px;
-          margin-top: 20px;
-        }
-        .policy-sidebar {
-          padding: 20px;
-          height: fit-content;
-        }
-        .policy-links {
-          display: flex;
-          flex-direction: column;
-          gap: 10px;
-          margin-top: 15px;
-        }
-        .policy-links button {
-          display: flex;
-          align-items: center;
-          gap: 10px;
-          padding: 12px 15px;
-          border: 1px solid #eee;
-          border-radius: 8px;
-          background: #fff;
-          cursor: pointer;
-          transition: all 0.2s;
-          text-align: left;
-          color: #64748b;
-          font-weight: 500;
-        }
-        .policy-links button:hover {
-          background: #f8fafc;
-          border-color: var(--primary);
-        }
-        .policy-links button.active {
-          background: var(--primary);
-          color: #fff;
-          border-color: var(--primary);
-        }
-        .policy-main {
-          padding: 30px;
-        }
-        textarea {
-          width: 100%;
-          border: 1px solid #ddd;
-          border-radius: 8px;
-          padding: 15px;
-          font-family: inherit;
-          resize: vertical;
-          line-height: 1.6;
-        }
-      `}</style>
     </div>
   );
 };
