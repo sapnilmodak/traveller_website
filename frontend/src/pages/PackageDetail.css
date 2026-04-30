@@ -3,37 +3,34 @@
   min-height: 100vh;
 }
 
-/* Hero Swiper */
-.hero-swiper-container {
-  height: 60vh;
+/* Hero Banner & Gallery */
+.hero-banner-container {
   width: 100%;
   position: relative;
+  background-color: #000;
+}
+
+.main-image-display {
+  position: relative;
+  height: 60vh;
+  width: 100%;
   overflow: hidden;
 }
 
-.hero-swiper-container .mySwiper {
-  height: 100%;
-}
-
-.slide-content {
-  position: relative;
-  height: 100%;
-  width: 100%;
-}
-
-.slide-content img {
+.main-image-display img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: opacity 0.5s ease-in-out;
 }
 
-.slide-overlay {
+.banner-overlay {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.6));
+  background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.5));
   display: flex;
   align-items: center;
   justify-content: center;
@@ -41,12 +38,51 @@
   padding: 0 20px;
 }
 
-.slide-overlay h1 {
+.banner-overlay h1 {
   color: white;
   font-size: 3.5rem;
   font-weight: 800;
-  text-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  text-shadow: 0 4px 12px rgba(0,0,0,0.4);
   max-width: 900px;
+}
+
+.thumbnail-strip-container {
+  background: white;
+  padding: 15px 0;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.thumbnail-grid {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.thumb-item {
+  width: 100px;
+  height: 70px;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  border: 3px solid transparent;
+  transition: all 0.3s ease;
+  opacity: 0.6;
+}
+
+.thumb-item:hover {
+  opacity: 1;
+}
+
+.thumb-item.active {
+  border-color: #01B2A6;
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+.thumb-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 /* Detail Content Layout */

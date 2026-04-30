@@ -92,7 +92,7 @@ const getPackageById = async (req, res) => {
 // @access  Private/Admin
 const createPackage = async (req, res) => {
   try {
-    const { title, destination, category, url, nights, days, price, description, highlights, inclusions, exclusions, itinerary } = req.body;
+    const { title, destination, category, url, nights, days, price, description, highlights, inclusions, exclusions, itinerary, images } = req.body;
     let thumbSrc = '';
 
     if (req.file) {
@@ -121,6 +121,7 @@ const createPackage = async (req, res) => {
       exclusions: exclusions || [],
       itinerary: itinerary || [],
       isFeatured: req.body.isFeatured || false,
+      images: images || [],
     });
 
     res.status(201).json(createdPackage);
@@ -152,6 +153,7 @@ const updatePackage = async (req, res) => {
       if (req.body.exclusions !== undefined) updateData.exclusions = req.body.exclusions;
       if (req.body.itinerary !== undefined) updateData.itinerary = req.body.itinerary;
       if (req.body.isFeatured !== undefined) updateData.isFeatured = req.body.isFeatured;
+      if (req.body.images !== undefined) updateData.images = req.body.images;
 
       if (req.file) {
         updateData.thumbSrc = `/uploads/${req.file.filename}`;

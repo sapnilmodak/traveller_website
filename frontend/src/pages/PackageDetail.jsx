@@ -37,6 +37,7 @@ const PackageDetail = () => {
     persons: '',
     comments: ''
   });
+  const [activeImage, setActiveImage] = useState('');
 
   useEffect(() => {
     const fetchItem = async () => {
@@ -56,6 +57,12 @@ const PackageDetail = () => {
         if (response && response.data) {
           setItem(response.data);
           setFormData(prev => ({ ...prev, destination: response.data.title }));
+          
+          // Set initial active image
+          const initialImages = (response.data.images && response.data.images.length > 0) 
+            ? response.data.images 
+            : [response.data.thumbSrc || response.data.src];
+          setActiveImage(initialImages[0]);
         }
       } catch (error) {
         console.error(`Error fetching ${type}:`, error);
@@ -164,36 +171,48 @@ const PackageDetail = () => {
     ? item.images 
     : [item.thumbSrc || item.src];
 
+  const getFullImageUrl = (img) => {
+    if (!img) return '';
+    if (img.startsWith('http')) return img;
+    return `${import.meta.env.VITE_API_URL.replace(/\/api$/, '')}${img}`;
+  };
+
   return (
     <div className="package-detail-page">
       <Navbar />
       
-      {/* Hero Swiper */}
-      <div className="hero-swiper-container">
-        <Swiper
-          modules={[Navigation, Pagination, Autoplay]}
-          navigation
-          pagination={{ clickable: true }}
-          autoplay={{ delay: 5000 }}
-          className="mySwiper"
-        >
-          {displayImages.map((img, index) => (
-            <SwiperSlide key={index}>
-              <div className="slide-content">
-                <img src={img.startsWith('http') ? img : `${import.meta.env.VITE_API_URL.replace(/\/api$/, '')}${img}`} alt={`${item.title} - ${index + 1}`} />
-                <div className="slide-overlay">
-                  <motion.h1 
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8 }}
+      {/* Main Image Banner */}
+      <div className="hero-banner-container">
+        <div className="main-image-display">
+          <img src={getFullImageUrl(activeImage)} alt={item.title} />
+          <div className="banner-overlay">
+            <motion.h1 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+            >
+              {item.title}
+            </motion.h1>
+          </div>
+        </div>
+
+        {displayImages.length > 1 && (
+          <div className="thumbnail-strip-container">
+            <div className="container">
+              <div className="thumbnail-grid">
+                {displayImages.map((img, index) => (
+                  <div 
+                    key={index} 
+                    className={`thumb-item ${activeImage === img ? 'active' : ''}`}
+                    onClick={() => setActiveImage(img)}
                   >
-                    {item.title}
-                  </motion.h1>
-                </div>
+                    <img src={getFullImageUrl(img)} alt={`Thumbnail ${index + 1}`} />
+                  </div>
+                ))}
               </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
+            </div>
+          </div>
+        )}
       </div>
 
       <div className="detail-content-wrapper">

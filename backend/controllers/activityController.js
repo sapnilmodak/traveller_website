@@ -90,7 +90,7 @@ const getActivityById = async (req, res) => {
 // @access  Private/Admin
 const createActivity = async (req, res) => {
   try {
-    const { title, price, category, destination, description } = req.body;
+    const { title, price, category, destination, description, images } = req.body;
     let src = '';
 
     if (req.file) {
@@ -112,6 +112,7 @@ const createActivity = async (req, res) => {
       destination,
       description,
       isFeatured: req.body.isFeatured || false,
+      images: images || [],
     });
 
     res.status(201).json(createdActivity);
@@ -136,6 +137,7 @@ const updateActivity = async (req, res) => {
       if (req.body.destination) updateData.destination = req.body.destination;
       if (req.body.description) updateData.description = req.body.description;
       if (req.body.isFeatured !== undefined) updateData.isFeatured = req.body.isFeatured;
+      if (req.body.images !== undefined) updateData.images = req.body.images;
 
       if (req.file) {
         updateData.src = `/uploads/${req.file.filename}`;
