@@ -5,7 +5,7 @@ import './WhyChooseUs.css';
 
 const WhyChooseUs = () => {
   const features = [
-    { icon: <FaAward />, title: "Certified Excellence", desc: "Award-winning travel services since 1999." },
+    { icon: <FaAward />, title: "Certified Excellence", desc: "Award-winning travel services since 2000." },
     { icon: <FaShieldAlt />, title: "Safety First", desc: "Expert guides and top-notch safety equipment." },
     { icon: <FaLeaf />, title: "Eco-Friendly", desc: "Adventure with care for the local environment." },
     { icon: <FaUsers />, title: "Local Experts", desc: "A team that knows every corner of Ladakh." }
