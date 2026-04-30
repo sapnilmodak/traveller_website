@@ -10,6 +10,7 @@ const TeamInit = require('./Team');
 const UserInit = require('./User');
 const AdminInit = require('./Admin');
 const AccessoryInit = require('./Accessory');
+const PageInit = require('./Page');
 
 let models = {};
 
@@ -26,6 +27,7 @@ const initModels = () => {
   models.User = UserInit();
   models.Admin = AdminInit();
   models.Accessory = AccessoryInit();
+  models.Page = PageInit();
 
   return models;
 };
