@@ -1,17 +1,48 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import { teamService } from '../services/api';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination, Autoplay } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 import logo from '../assets/logo.png';
 import './AboutUs.css';
 
 const AboutUs = () => {
+  const [team, setTeam] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchTeam = async () => {
+      try {
+        const { data } = await teamService.getAll();
+        setTeam(data);
+      } catch (error) {
+        console.error('Error fetching team:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchTeam();
+    window.scrollTo(0, 0);
+  }, []);
+
+  const getImageUrl = (url) => {
+    if (!url) return '';
+    if (url.startsWith('http')) return url;
+    const apiBase = import.meta.env.VITE_API_URL ? import.meta.env.VITE_API_URL.replace(/\/api$/, '') : 'http://localhost:5000';
+    return `${apiBase}${url}`;
+  };
+
   return (
     <div className="about-page">
       <Navbar />
       <div className="page-header">
         <div className="container">
           <h1>About Us</h1>
-          <p>Miracle Ladakh Adventure - Explore The World of Adventure Professionally Reliable</p>
+          <p>Explore the world of Adventure - Professionally Reliable</p>
         </div>
       </div>
 
@@ -58,6 +89,48 @@ const AboutUs = () => {
           </div>
         </div>
       </section>
+
+      {/* Team Section */}
+      {team.length > 0 && (
+        <section className="team-section section-padding">
+          <div className="container">
+            <div className="section-title text-center">
+              <h2>Meet Our Experts</h2>
+              <p>The passionate individuals behind your unforgettable adventures</p>
+            </div>
+            
+            <Swiper
+              modules={[Navigation, Pagination, Autoplay]}
+              spaceBetween={30}
+              slidesPerView={1}
+              navigation
+              pagination={{ clickable: true }}
+              autoplay={{ delay: 3000, disableOnInteraction: false }}
+              breakpoints={{
+                640: { slidesPerView: 2 },
+                1024: { slidesPerView: 3 },
+                1280: { slidesPerView: 4 }
+              }}
+              className="team-swiper"
+            >
+              {team.map((member) => (
+                <SwiperSlide key={member._id}>
+                  <div className="team-card">
+                    <div className="team-image">
+                      <img src={getImageUrl(member.teamSrc)} alt={member.title} />
+                    </div>
+                    <div className="team-info">
+                      <h4>{member.title}</h4>
+                      <p className="designation">{member.designation}</p>
+                      {member.sub_title && <p className="sub-title">{member.sub_title}</p>}
+                    </div>
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
+        </section>
+      )}
 
       <Footer />
     </div>

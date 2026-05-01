@@ -32,9 +32,9 @@ const Footer = () => {
             </div>
             <p className="footer-desc">Crafting extraordinary journeys in the heart of the Himalayas since 2000. Experience the miracle of nature with us.</p>
             <div className="social-pills">
-              <a href="#" className="social-pill"><FaFacebook /></a>
+              <a href="https://www.facebook.com/MIRACLELADAKHADVENTURE" target="_blank" rel="noopener noreferrer" className="social-pill"><FaFacebook /></a>
               <a href="https://www.youtube.com/@miracle_ladakh_adventure_" target="_blank" rel="noopener noreferrer" className="social-pill"><FaYoutube /></a>
-              <a href="#" className="social-pill"><FaInstagram /></a>
+              <a href="https://www.instagram.com/miracleladakhadventure/" target="_blank" rel="noopener noreferrer" className="social-pill"><FaInstagram /></a>
             </div>
           </Col>
 
@@ -87,7 +87,7 @@ const Footer = () => {
         </Row>
 
         <div className="footer-bottom-row">
-          <p>&copy; {new Date().getFullYear()} Miracle Ladakh Adventure. Built for Explorers.</p>
+          <p>&copy; {new Date().getFullYear()} Miracle Ladakh Adventure.  Professionally Reliable.</p>
           <div className="footer-bottom-links">
             <a href="/policy/privacy-policy">Privacy Policy</a>
             <a href="/policy/terms-conditions">Terms & Conditions</a>
